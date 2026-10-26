@@ -1,0 +1,8 @@
+{
+  "name": "BIZORA - Digital Solutions for Indian Businesses",
+  "description": "Making Every Business Digital. Professional websites, online catalogues, appointment systems, business automation, and WhatsApp customer communication for Indian businesses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

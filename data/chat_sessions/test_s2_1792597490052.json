@@ -1,0 +1,39 @@
+{
+  "sessionId": "test_s2_1792597490052",
+  "conversationId": "conv_9330bd90-b606-4367-b144-276614dc0535",
+  "createdAt": "2026-10-21T15:44:50.052Z",
+  "updatedAt": "2026-10-21T15:44:50.454Z",
+  "messages": [
+    {
+      "id": "5afa54bd-df24-4339-b0d3-22b31486199b",
+      "role": "user",
+      "content": "I sell automobile batteries in Pune",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "352839a1-fe41-46e7-ae9a-acf3be98b482",
+      "role": "assistant",
+      "content": "For a **automobile batteries in pune**, here is how BIZORA can help you grow online:\n\n• **Interactive Online Catalogue / Website:** Showcase your product models, brands, and specifications so local buyers find you on Google Search.\n• **Instant WhatsApp Inquiries:** Customers can tap one button to ask about prices or stock directly on your WhatsApp.\n• **Location & Directions:** Embedded Google Maps so walk-in customers find your shop easily.\n\nWould you like customers to also request delivery or quotations through the website?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "whatsapp"
+    },
+    {
+      "id": "7e450e2c-086e-4446-b929-d121b746591b",
+      "role": "user",
+      "content": "What features should it have for my customers?",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "9f8647bf-ad57-4f47-a676-ababcd04b9b4",
+      "role": "assistant",
+      "content": "Regarding **WhatsApp Business Automation & Customer Workflows**:\n\n- Description: Automated customer communication workflows built around WhatsApp—the primary communication channel used by Indian consumers.\n- Key Capabilities: Instant automated greeting messages within seconds (even outside business hours), structured lead intake collecting customer requirement, automated order confirmations, and smart routing to founder or staff.\n- Business Benefit: Prevents customer drop-off when staff are busy serving in-store clients.\n- Delivery Timeline: 5 to 10 business days for standalone automation; integrated into websites and catalogues as standard.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "whatsapp"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "businessType": "automobile batteries in pune"
+  }
+}

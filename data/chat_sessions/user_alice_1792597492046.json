@@ -1,0 +1,25 @@
+{
+  "sessionId": "user_alice_1792597492046",
+  "conversationId": "conv_514558a7-87d0-481e-8396-cf47215dbd8d",
+  "createdAt": "2026-10-21T15:44:52.046Z",
+  "updatedAt": "2026-10-21T15:44:52.258Z",
+  "messages": [
+    {
+      "id": "1029956d-c654-4329-815e-676e6ca306a3",
+      "role": "user",
+      "content": "My company name is Alice Private Enterprise",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "cdc0be8d-64eb-4722-82d5-832682034b58",
+      "role": "assistant",
+      "content": "Hello! I am your **BIZORA AI Assistant**.\n\nWe help Indian businesses modernize their operations with:\n• **High-speed Business Websites** (Google SEO & mobile-ready)\n• **Digital Product Catalogues** (with 1-click WhatsApp orders)\n• **Clinic & Appointment Portals** (automated patient scheduling)\n• **WhatsApp Business Automation** (24/7 lead capture)\n\nTell me what type of business you run, and I will recommend the best solution for you!",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "whatsapp"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring"
+  }
+}

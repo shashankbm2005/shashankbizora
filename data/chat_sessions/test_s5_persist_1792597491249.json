@@ -1,0 +1,42 @@
+{
+  "sessionId": "test_s5_persist_1792597491249",
+  "conversationId": "conv_de3fdeb6-1fa8-485b-bff7-e300d3262d2e",
+  "createdAt": "2026-10-21T15:44:51.249Z",
+  "updatedAt": "2026-10-21T15:44:51.664Z",
+  "messages": [
+    {
+      "id": "6991308f-c78f-4220-b562-d3e241734430",
+      "role": "user",
+      "content": "We are a dental clinic in Bengaluru",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "bcad7f94-44a6-4160-9ce4-507f905bb11e",
+      "role": "assistant",
+      "content": "For a **dental clinic in bengaluru**, here is how BIZORA can help you grow online:\n\n• **Interactive Online Catalogue / Website:** Showcase your product models, brands, and specifications so local buyers find you on Google Search.\n• **Instant WhatsApp Inquiries:** Customers can tap one button to ask about prices or stock directly on your WhatsApp.\n• **Location & Directions:** Embedded Google Maps so walk-in customers find your shop easily.\n\nWould you like customers to also request delivery or quotations through the website?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "appointment_enquiry"
+    },
+    {
+      "id": "c260d58b-28b7-400f-8838-8a372044190b",
+      "role": "user",
+      "content": "Can patients book slots online?",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "5406d891-fd71-4ab3-ad0c-55c2fa00c27f",
+      "role": "assistant",
+      "content": "Regarding **Appointment & Enquiry Management Portals**:\n\n- Description: Online appointment booking systems designed to eliminate missed phone calls and receptionist bottleneck during peak business hours.\n- Key Capabilities: 24/7 patient/client slot selection, doctor/consultant calendar availability, automated WhatsApp & SMS confirmation alerts, internal staff dashboard to view, reschedule, or manage customer appointments.\n- Inclusions: Doctor/staff schedule management, cancellation policies, patient intake details, exportable appointment history.\n- Ideal For: Healthcare clinics, dental practices, physiotherapy centers, wellness salons, diagnostic labs, and consulting firms.\n- Delivery Timeline: 10 to 18 business days.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "appointment_enquiry"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "appointment_enquiry",
+    "businessType": "dental clinic in bengaluru"
+  }
+}

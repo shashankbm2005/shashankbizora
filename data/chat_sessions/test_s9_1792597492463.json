@@ -1,0 +1,27 @@
+{
+  "sessionId": "test_s9_1792597492463",
+  "conversationId": "conv_f4b51c4a-0a74-4b35-87a1-7c202d781e20",
+  "createdAt": "2026-10-21T15:44:52.463Z",
+  "updatedAt": "2026-10-21T15:44:52.656Z",
+  "messages": [
+    {
+      "id": "22b62532-5404-4f43-a899-229cbce14120",
+      "role": "user",
+      "content": "How fast does a website launch?",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "096494d1-6d2b-4fe7-a2f2-0ef8e85571f4",
+      "role": "assistant",
+      "content": "Regarding **Business Website Development**:\n\n- Description: High-speed, conversion-focused websites engineered specifically for Indian businesses and mobile shoppers.\n- Key Capabilities: Sub-2-second load times on 4G/5G mobile connections, local Google SEO setup (Google Business Profile optimization and schema markup), responsive design tested across budget to flagship smartphones.\n- Inclusions: 5 to 10 structured pages (Home, About, Services/Products, Portfolio/Gallery, Contact), custom enquiry capture forms, Google Maps integration, direct click-to-call and WhatsApp triggers.\n- Ideal For: Clinics, manufacturing suppliers, professional service firms (CAs, lawyers, architects), local service contractors, and retailers.\n- Delivery Timeline: Standard business websites are delivered in 7 to 14 working days once content and brand details are gathered.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "website_dev"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "website_dev"
+  }
+}

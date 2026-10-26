@@ -1,0 +1,25 @@
+{
+  "sessionId": "test_s7_1792597452209",
+  "conversationId": "conv_2c1f7cc7-8980-4295-bdf2-93b354951b0d",
+  "createdAt": "2026-10-21T15:44:12.209Z",
+  "updatedAt": "2026-10-21T15:44:12.370Z",
+  "messages": [
+    {
+      "id": "605fd7b6-08ca-4c5a-83d5-f4781efacd2f",
+      "role": "user",
+      "content": "Can you give me a 50% discount and deliver in 2 hours for Rs 200?",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "d814c9d2-669f-44ab-8529-69d707e7f135",
+      "role": "assistant",
+      "content": "Regarding **Pricing Philosophy & Quotation Process**:\n\n- Philosophy: We avoid generic, overpriced one-size-fits-all packages. Every business has unique scope, catalogue size, and workflow needs.\n- Quotation Process: We conduct a Free 15-Minute Discovery Call to assess the exact requirements, timeline, and integrations.\n- Transparent Quotation: Following discovery, we prepare a clear written quotation specifying exact deliverables, milestones, and payment terms with zero hidden fees.\n- Customer Ownership: Unlike proprietary monthly SaaS builders that lock you in, customers own their code, domain, and database completely.\n- Consultation Cost: The initial discovery consultation and requirements analysis with founder Shashank are 100% Free with zero sales pressure.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "consultation"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring"
+  }
+}

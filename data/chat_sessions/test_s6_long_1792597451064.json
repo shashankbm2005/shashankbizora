@@ -1,0 +1,217 @@
+{
+  "sessionId": "test_s6_long_1792597451064",
+  "conversationId": "conv_8f844327-3099-48bb-bd5b-aa98eb2b2eab",
+  "createdAt": "2026-10-21T15:44:11.064Z",
+  "updatedAt": "2026-10-21T15:44:12.208Z",
+  "messages": [
+    {
+      "id": "msg_1",
+      "role": "user",
+      "content": "Turn 1 requirement: we need step 1 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_2",
+      "role": "assistant",
+      "content": "Turn 2 requirement: we need step 2 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_3",
+      "role": "user",
+      "content": "Turn 3 requirement: we need step 3 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_4",
+      "role": "assistant",
+      "content": "Turn 4 requirement: we need step 4 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_5",
+      "role": "user",
+      "content": "Turn 5 requirement: we need step 5 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_6",
+      "role": "assistant",
+      "content": "Turn 6 requirement: we need step 6 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_7",
+      "role": "user",
+      "content": "Turn 7 requirement: we need step 7 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_8",
+      "role": "assistant",
+      "content": "Turn 8 requirement: we need step 8 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_9",
+      "role": "user",
+      "content": "Turn 9 requirement: we need step 9 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_10",
+      "role": "assistant",
+      "content": "Turn 10 requirement: we need step 10 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_11",
+      "role": "user",
+      "content": "Turn 11 requirement: we need step 11 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_12",
+      "role": "assistant",
+      "content": "Turn 12 requirement: we need step 12 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_13",
+      "role": "user",
+      "content": "Turn 13 requirement: we need step 13 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_14",
+      "role": "assistant",
+      "content": "Turn 14 requirement: we need step 14 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_15",
+      "role": "user",
+      "content": "Turn 15 requirement: we need step 15 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_16",
+      "role": "assistant",
+      "content": "Turn 16 requirement: we need step 16 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_17",
+      "role": "user",
+      "content": "Turn 17 requirement: we need step 17 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_18",
+      "role": "assistant",
+      "content": "Turn 18 requirement: we need step 18 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_19",
+      "role": "user",
+      "content": "Turn 19 requirement: we need step 19 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_20",
+      "role": "assistant",
+      "content": "Turn 20 requirement: we need step 20 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_21",
+      "role": "user",
+      "content": "Turn 21 requirement: we need step 21 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_22",
+      "role": "assistant",
+      "content": "Turn 22 requirement: we need step 22 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_23",
+      "role": "user",
+      "content": "Turn 23 requirement: we need step 23 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_24",
+      "role": "assistant",
+      "content": "Turn 24 requirement: we need step 24 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_25",
+      "role": "user",
+      "content": "Turn 25 requirement: we need step 25 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_26",
+      "role": "assistant",
+      "content": "Turn 26 requirement: we need step 26 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_27",
+      "role": "user",
+      "content": "Turn 27 requirement: we need step 27 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_28",
+      "role": "assistant",
+      "content": "Turn 28 requirement: we need step 28 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_29",
+      "role": "user",
+      "content": "Turn 29 requirement: we need step 29 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_30",
+      "role": "assistant",
+      "content": "Turn 30 requirement: we need step 30 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_31",
+      "role": "user",
+      "content": "Turn 31 requirement: we need step 31 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "msg_32",
+      "role": "assistant",
+      "content": "Turn 32 requirement: we need step 32 for online ordering",
+      "timestamp": "10:00 AM"
+    },
+    {
+      "id": "427d633f-9f59-400f-91f4-1e3072230db0",
+      "role": "user",
+      "content": "Finalizing order details",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "eaa233fc-ff2e-45cc-9885-14ef6fdfec51",
+      "role": "assistant",
+      "content": "Regarding **AI Business Assistants & Workflow Automation**:\n\n- Description: Custom conversational AI agents and intelligent customer advisors built on Google Gemini and modern LLM architecture.\n- Key Capabilities: Natural customer enquiry handling, multi-turn dialogue memory, understanding business services, answering FAQs 24/7, and qualifying customer leads before handing off to human sales reps.\n- Delivery Timeline: 2 to 4 weeks depending on internal workflows and knowledge ingestion needs.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "call"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "sessionId": "sess_2570a717-f6cb-4ffc-bb63-cba345da04b1",
+  "conversationId": "conv_df43a76d-31a0-4bd1-be15-3a328bb06360",
+  "createdAt": "2026-10-21T15:45:47.770Z",
+  "updatedAt": "2026-10-21T15:45:48.663Z",
+  "messages": [
+    {
+      "id": "fdc78e12-aeb3-47dc-a402-28b98eb5163a",
+      "role": "user",
+      "content": "I run a battery store in Bengaluru. Can customers order on WhatsApp?",
+      "timestamp": "03:45 PM"
+    },
+    {
+      "id": "a92a68c3-7569-4457-9713-dbc09e576c75",
+      "role": "assistant",
+      "content": "For a **a battery store in bengaluru**, here is how BIZORA can help you grow online:\n\n• **Interactive Online Catalogue / Website:** Showcase your product models, brands, and specifications so local buyers find you on Google Search.\n• **Instant WhatsApp Inquiries:** Customers can tap one button to ask about prices or stock directly on your WhatsApp.\n• **Location & Directions:** Embedded Google Maps so walk-in customers find your shop easily.\n\nWould you like customers to also request delivery or quotations through the website?",
+      "timestamp": "03:45 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "whatsapp_automation"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "whatsapp_automation",
+    "businessType": "a battery store in bengaluru"
+  }
+}

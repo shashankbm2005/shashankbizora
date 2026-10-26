@@ -1,0 +1,41 @@
+{
+  "sessionId": "test_s3_1792597446776",
+  "conversationId": "conv_082f5e64-75fe-452e-b482-a5b132de6189",
+  "createdAt": "2026-10-21T15:44:06.776Z",
+  "updatedAt": "2026-10-21T15:44:08.702Z",
+  "messages": [
+    {
+      "id": "d7ae4b50-9033-4bd1-ae1c-12bc2479deb6",
+      "role": "user",
+      "content": "How does the WhatsApp catalogue work?",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "df5747fe-9080-42d0-9ac5-d41af3dfb5a8",
+      "role": "assistant",
+      "content": "Regarding **Digital Catalogues & Online Presence**:\n\n- Description: Interactive online product catalogues that replace heavy 40MB PDF files that customers rarely open or struggle to read on mobile.\n- Key Capabilities: Category-based product browsing, instant search, product photos, variant specs (sizes, models, ratings), and a direct \"Enquire on WhatsApp for this Product\" button for every item.\n- Customer Experience: Customers browse smoothly on their smartphone and send instant WhatsApp messages with the exact product title prefilled.\n- Ideal For: Battery & electronics stores, hardware distributors, industrial component suppliers, furniture showrooms, clothing and lifestyle boutiques.\n- Delivery Timeline: 7 to 14 business days depending on the number of categories and items.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "digital_catalogue"
+    },
+    {
+      "id": "a57a80fa-b687-41c1-9fad-113c96ee9dee",
+      "role": "user",
+      "content": "How does the WhatsApp catalogue work?",
+      "timestamp": "03:44 PM"
+    },
+    {
+      "id": "2c8f7ceb-220a-4fc7-8923-99574758675e",
+      "role": "assistant",
+      "content": "As mentioned, for your business, the key next step is reviewing your exact deliverables with founder Shashank. Would you like me to open the Free Consultation form, or would you prefer a direct WhatsApp chat?",
+      "timestamp": "03:44 PM",
+      "suggestedAction": "consultation",
+      "serviceId": "digital_catalogue"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "digital_catalogue"
+  }
+}
