@@ -19,8 +19,10 @@ import {
   Save,
   Database,
   ExternalLink,
-  ChevronRight,
   Info,
+  ChevronRight,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import type { CustomerEnquiry, EnquiryStats, EnquiryStatus, ServiceType } from '../types/enquiry.ts';
 import { SERVICES, BIZORA_PHONE } from '../data/servicesData.ts';
@@ -33,6 +35,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
   // Auth state
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('bizora_admin_token'));
   const [passwordInput, setPasswordInput] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -290,16 +293,27 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
               <label className="block text-xs font-semibold text-slate-700 mb-1">
                 Administrator Password
               </label>
-              <input
-                type="password"
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                placeholder="Enter password..."
-                className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
-                autoFocus
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  placeholder="••••••••••••"
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 pr-10"
+                  autoFocus
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer p-1"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
               <p className="text-[11px] text-slate-400 mt-1">
-                Configured via ADMIN_PASSWORD environment variable (default: <code className="bg-slate-100 px-1 py-0.5 rounded font-mono">bizora2026admin</code>)
+                Authorized founder access only. Enter your secure password.
               </p>
             </div>
 

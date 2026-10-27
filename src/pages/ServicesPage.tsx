@@ -14,6 +14,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { SERVICES, BIZORA_PHONE, getWhatsAppUrl } from '../data/servicesData.ts';
+import serviceWebCatalogueImg from '../assets/images/service_web_catalogue_1792397377193.jpg';
 
 interface ServicesPageProps {
   onOpenConsultation: (serviceId?: string) => void;
@@ -84,10 +85,13 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenConsultation }
 
           <div className="lg:col-span-5 bg-slate-100 min-h-[280px]">
             <img
-              src="/src/assets/images/service_web_catalogue_1792397377193.jpg"
+              src={serviceWebCatalogueImg}
               alt="Responsive business catalogue on laptop and smartphone"
               className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
+              loading="lazy"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = '/images/service_web_catalogue_1792397377193.jpg';
+              }}
             />
           </div>
         </div>

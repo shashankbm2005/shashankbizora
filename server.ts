@@ -576,6 +576,10 @@ Please review my consultation and get back to me.`;
     });
     app.use(vite.middlewares);
   } else {
+    const publicPath = path.resolve(__dirname, 'public');
+    if (fs.existsSync(publicPath)) {
+      app.use(express.static(publicPath));
+    }
     const distPath = path.resolve(__dirname, 'dist');
     if (fs.existsSync(distPath)) {
       app.use(express.static(distPath));

@@ -17,6 +17,7 @@ import { SERVICES, BIZORA_PHONE, getWhatsAppUrl } from '../data/servicesData.ts'
 import { HeroCarousel } from '../components/HeroCarousel.tsx';
 import { DirectCallerSection } from '../components/DirectCallerSection.tsx';
 import { CustomerMomentsFloating } from '../components/CustomerMomentsFloating.tsx';
+import modernArchitectureImg from '../assets/images/modern_digital_architecture_1793126619736.jpg';
 
 interface HomePageProps {
   onOpenConsultation: (serviceId?: string) => void;
@@ -245,14 +246,25 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation, onNaviga
             </div>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden border border-slate-700 aspect-[4/3]">
-            <img
-              src="/src/assets/images/service_automation_wa_1792397377447.jpg"
-              alt="BIZORA workflow automation and lead pipeline console"
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
-          </div>
+            <div className="relative rounded-2xl overflow-hidden border border-slate-700 aspect-[4/3] shadow-2xl group">
+              <img
+                src={modernArchitectureImg}
+                alt="BIZORA modern enterprise architecture with real-time analytics and WhatsApp communication"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/images/modern_digital_architecture.jpg';
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] text-slate-200 bg-slate-900/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-700/60">
+                <span className="font-medium text-emerald-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Live Cloud Sync Active
+                </span>
+                <span className="text-slate-400 font-mono text-[10px]">PostgreSQL + WhatsApp</span>
+              </div>
+            </div>
         </div>
       </section>
 
