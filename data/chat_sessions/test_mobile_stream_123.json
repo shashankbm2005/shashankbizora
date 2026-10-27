@@ -1,0 +1,27 @@
+{
+  "sessionId": "test_mobile_stream_123",
+  "conversationId": "conv_f026dc19-9343-40d9-a52e-444910d2449c",
+  "createdAt": "2026-10-27T19:18:59.689Z",
+  "updatedAt": "2026-10-27T19:19:03.694Z",
+  "messages": [
+    {
+      "id": "22f0abd8-81d9-4b64-b952-d9786b824902",
+      "role": "user",
+      "content": "How long does website delivery take?",
+      "timestamp": "07:18 PM"
+    },
+    {
+      "id": "c94a710b-dd95-4392-85fd-6e46c38bc345",
+      "role": "assistant",
+      "content": "Standard delivery timelines at BIZORA:\n• **Business Websites (5-10 pages):** 7 to 14 working days\n• **Digital Product Catalogues:** 7 to 14 working days\n• **Clinic & Appointment Portals:** 10 to 18 working days\n• **WhatsApp Business Automations:** 5 to 10 working days\n• **Custom Software & Database Portals:** 3 to 6 weeks\n\nWe provide preview links during development so you can test everything before launch!",
+      "timestamp": "07:19 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "website_dev"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "website_dev"
+  }
+}

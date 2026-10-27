@@ -248,7 +248,7 @@ export async function executeAiChat(
         });
       }
 
-      const response = await ai.models.generateContent({
+      const responsePromise = ai.models.generateContent({
         model: 'gemini-3.8-flash',
         contents,
         config: {
@@ -258,13 +258,19 @@ export async function executeAiChat(
         },
       });
 
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('AI Engine response timeout (4.5s)')), 4500)
+      );
+
+      const response = await Promise.race([responsePromise, timeoutPromise]);
+
       const rawText = response.text?.trim();
       if (rawText) {
         generatedReply = rawText;
         isAiPowered = true;
       }
     } catch (err: any) {
-      console.warn('[AIEngine] Gemini API error, using context fallback:', err.message);
+      console.warn('[AIEngine] Gemini API error/timeout, using context fallback:', err.message);
     }
   }
 
@@ -366,7 +372,7 @@ export async function executeAiChatStream(
         });
       }
 
-      const stream = await ai.models.generateContentStream({
+      const streamPromise = ai.models.generateContentStream({
         model: 'gemini-3.8-flash',
         contents,
         config: {
@@ -375,6 +381,12 @@ export async function executeAiChatStream(
           maxOutputTokens: 500,
         },
       });
+
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('AI Engine stream init timeout (4.0s)')), 4000)
+      );
+
+      const stream = await Promise.race([streamPromise, timeoutPromise]);
 
       for await (const chunk of stream) {
         const text = chunk.text;

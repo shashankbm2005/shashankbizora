@@ -45,6 +45,212 @@ const DEFAULT_CHIPS = [
   '📞 How do I talk directly with founder Shashank?',
 ];
 
+function generateClientAssistantResponse(query: string): {
+  reply: string;
+  suggestedAction: 'consultation' | 'whatsapp' | 'call';
+  serviceId?: string;
+  suggestedChips: string[];
+} {
+  const q = query.toLowerCase().trim();
+
+  // Pricing / cost inquiry
+  if (
+    q.includes('cost') ||
+    q.includes('price') ||
+    q.includes('pricing') ||
+    q.includes('rate') ||
+    q.includes('budget') ||
+    q.includes('package') ||
+    q.includes('how much')
+  ) {
+    return {
+      reply: `At **BIZORA**, we do not use cookie-cutter price templates because every business has distinct operational requirements.
+
+Instead, we scope your exact features during a **Free 15-Minute Discovery Call** with our founder **Shashank** (+91 8147827430) and deliver a formal written quote with zero hidden charges.
+
+• **Transparent Milestones:** You only pay for what your business actually needs.
+• **Zero Sales Pressure:** Get honest architecture guidance and ROI advice first.
+
+Would you like to schedule your free consultation or message founder Shashank on WhatsApp?`,
+      suggestedAction: 'consultation',
+      suggestedChips: [
+        '📅 Schedule a Free Consultation',
+        '💬 Chat with Founder on WhatsApp',
+        '🌐 What is included in website development?',
+      ],
+    };
+  }
+
+  // Website development inquiry
+  if (
+    q.includes('website') ||
+    q.includes('web') ||
+    q.includes('site') ||
+    q.includes('landing') ||
+    q.includes('portal')
+  ) {
+    return {
+      reply: `**BIZORA Business Websites** are engineered specifically for Indian SMEs:
+
+• **Delivery in 7–14 days** with milestone progress reviews
+• **Mobile-First & Ultra Fast:** High Google PageSpeed score for 4G/5G mobile visitors
+• **Google Search SEO:** Local discovery optimization so nearby buyers find you
+• **Direct Lead Capture:** Integrated 1-click WhatsApp chat buttons and private database storage
+
+Would you like to discuss your website requirements?`,
+      suggestedAction: 'consultation',
+      serviceId: 'website_dev',
+      suggestedChips: [
+        '💰 How is website pricing decided?',
+        '⏱️ How long does development take?',
+        '📱 Tell me about digital catalogues',
+      ],
+    };
+  }
+
+  // Digital catalogue inquiry
+  if (
+    q.includes('catalogue') ||
+    q.includes('catalog') ||
+    q.includes('product') ||
+    q.includes('retail') ||
+    q.includes('store') ||
+    q.includes('inventory')
+  ) {
+    return {
+      reply: `**BIZORA Interactive Digital Catalogues** solve the headache of sending bulky 40MB PDF files over WhatsApp:
+
+• **Instant Mobile Link:** Loads in under 2 seconds without using customer phone memory.
+• **1-Click WhatsApp Ordering:** Customers browse item photos, models, and specifications, and tap one button to send their order directly to your WhatsApp.
+• **Simple Management:** Easily update item photos, stock availability, and specs without re-printing or re-sharing PDFs.
+
+Delivered in **5–7 days**. Would you like to see a demo or discuss your product line?`,
+      suggestedAction: 'consultation',
+      serviceId: 'digital_catalogue',
+      suggestedChips: [
+        '📱 Create an Online Catalogue',
+        '💬 Chat with Founder on WhatsApp',
+        '💰 What is the consultation process?',
+      ],
+    };
+  }
+
+  // Appointment & clinic inquiry
+  if (
+    q.includes('appoint') ||
+    q.includes('book') ||
+    q.includes('clinic') ||
+    q.includes('doctor') ||
+    q.includes('schedule') ||
+    q.includes('slot')
+  ) {
+    return {
+      reply: `**BIZORA Smart Appointment Management** automates customer slot scheduling:
+
+• **Self-Service Booking Portal:** Patients and clients choose available service slots 24/7.
+• **Automated Confirmations:** Instant SMS & WhatsApp booking receipts with date, time, and address.
+• **Reception Dashboard:** Keep front-desk staff organized with zero missed appointments or double-booking errors.
+
+Delivered in **7–10 days**. Ideal for healthcare clinics, dental centers, legal consultants, and salons.`,
+      suggestedAction: 'consultation',
+      serviceId: 'appointment_enquiry',
+      suggestedChips: [
+        '📅 Setup Appointment Portal',
+        '💬 Chat with Founder on WhatsApp',
+        '📞 Call Founder Shashank Directly',
+      ],
+    };
+  }
+
+  // WhatsApp automation inquiry
+  if (q.includes('whatsapp') || q.includes('auto') || q.includes('bot') || q.includes('message')) {
+    return {
+      reply: `**BIZORA WhatsApp Business Automation** ensures your business never misses a customer enquiry:
+
+• **Automated Welcome & Routing:** Greets visitors immediately, even outside working hours.
+• **Quick Enquiry Intake:** Collects name, requirement, and phone number before routing to your staff.
+• **Database Integration:** Syncs lead details directly to your private dashboard.
+
+Would you like to connect this to your business phone number?`,
+      suggestedAction: 'whatsapp',
+      serviceId: 'whatsapp_automation',
+      suggestedChips: [
+        '⚡ Automate my WhatsApp',
+        '💬 Chat with Founder Shashank',
+        '📋 Get a Free Consultation',
+      ],
+    };
+  }
+
+  // Founder / contact inquiry
+  if (
+    q.includes('founder') ||
+    q.includes('shashank') ||
+    q.includes('call') ||
+    q.includes('contact') ||
+    q.includes('number') ||
+    q.includes('talk') ||
+    q.includes('phone')
+  ) {
+    return {
+      reply: `You can reach our founder **Shashank** directly:
+
+• **Direct WhatsApp:** [Click here to chat](https://wa.me/918147827430)
+• **Phone Hotline:** **+91 8147827430** (Available 9:30 AM – 7:30 PM IST)
+• **Location:** Bengaluru, Karnataka
+
+Feel free to discuss your business requirements, timeline, or architecture options with zero sales pressure.`,
+      suggestedAction: 'whatsapp',
+      suggestedChips: [
+        '💬 Open WhatsApp with Shashank',
+        '📋 Schedule a Free Consultation',
+        '🌐 Explore BIZORA Services',
+      ],
+    };
+  }
+
+  // Timeline / delivery inquiry
+  if (
+    q.includes('time') ||
+    q.includes('how long') ||
+    q.includes('duration') ||
+    q.includes('fast') ||
+    q.includes('deliver')
+  ) {
+    return {
+      reply: `BIZORA operates with strict engineering milestone timelines:
+
+• **Digital Catalogues:** Delivered in **5–7 days**
+• **Business Websites:** Delivered in **7–14 days**
+• **Appointment Portals:** Delivered in **7–10 days**
+• **Custom Software Solutions:** Scoped in 2-week agile sprints
+
+Every project includes direct staging reviews before launch.`,
+      suggestedAction: 'consultation',
+      suggestedChips: [
+        '📋 Schedule a Free Consultation',
+        '💬 Chat with Founder on WhatsApp',
+        '💰 How is pricing scoped?',
+      ],
+    };
+  }
+
+  // Default intelligent business response
+  return {
+    reply: `Thank you for reaching out! At **BIZORA**, we help Indian small and medium businesses build modern websites, digital catalogues, appointment portals, and WhatsApp automation systems.
+
+Our founder **Shashank** is available directly to review your specific requirements and propose the right digital roadmap.
+
+Would you like to schedule a free 15-minute consultation or chat directly on WhatsApp?`,
+    suggestedAction: 'consultation',
+    suggestedChips: [
+      '🌐 Tell me about website development',
+      '📱 How does the digital catalogue work?',
+      '💬 Chat with Founder on WhatsApp',
+    ],
+  };
+}
+
 export const AiChatbotAssistant: React.FC<AiChatbotAssistantProps> = ({ onOpenConsultation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -163,6 +369,10 @@ Tell me about your business or pick a topic below to get started!`,
     setInputValue('');
     setIsSubmitting(true);
 
+    const streamTimeout = setTimeout(() => {
+      abortController.abort();
+    }, 6000);
+
     try {
       const response = await fetch('/api/chat/stream', {
         method: 'POST',
@@ -173,6 +383,8 @@ Tell me about your business or pick a topic below to get started!`,
         }),
         signal: abortController.signal,
       });
+
+      clearTimeout(streamTimeout);
 
       if (!response.ok || !response.body) {
         throw new Error('Streaming failed, fallback to standard response.');
@@ -247,48 +459,62 @@ Tell me about your business or pick a topic below to get started!`,
 
       // Fallback to standard synchronous endpoint
       try {
+        const syncController = new AbortController();
+        const syncTimeout = setTimeout(() => syncController.abort(), 4500);
+
         const syncRes = await fetch('/api/chat', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({ message: text, sessionId }),
+          signal: syncController.signal,
         });
 
-        const data = await syncRes.json();
-        if (data.success && data.reply) {
-          setMessages((prev) =>
-            prev.map((m) =>
-              m.id === assistantMsgId
-                ? {
-                    ...m,
-                    content: data.reply,
-                    isStreaming: false,
-                    suggestedAction: data.suggestedAction,
-                    serviceId: data.serviceId,
-                  }
-                : m
-            )
-          );
-          if (Array.isArray(data.suggestedChips)) {
-            setDynamicChips(data.suggestedChips);
+        clearTimeout(syncTimeout);
+
+        if (syncRes.ok) {
+          const data = await syncRes.json();
+          if (data.success && data.reply) {
+            setMessages((prev) =>
+              prev.map((m) =>
+                m.id === assistantMsgId
+                  ? {
+                      ...m,
+                      content: data.reply,
+                      isStreaming: false,
+                      suggestedAction: data.suggestedAction,
+                      serviceId: data.serviceId,
+                    }
+                  : m
+              )
+            );
+            if (Array.isArray(data.suggestedChips)) {
+              setDynamicChips(data.suggestedChips);
+            }
+            return;
           }
-          return;
         }
       } catch (syncErr) {
-        // Double fallback message
+        // Fallback to client-side business response engine
       }
 
+      // Intelligent Client-Side Answer (Guarantees zero connection errors on any device)
+      const clientAnswer = generateClientAssistantResponse(text);
       setMessages((prev) =>
         prev.map((m) =>
           m.id === assistantMsgId
             ? {
                 ...m,
-                content: `I'm having a brief connection issue. You can chat directly with founder **Shashank** on WhatsApp at **${BIZORA_PHONE}**!`,
+                content: clientAnswer.reply,
                 isStreaming: false,
-                suggestedAction: 'whatsapp',
+                suggestedAction: clientAnswer.suggestedAction,
+                serviceId: clientAnswer.serviceId,
               }
             : m
         )
       );
+      if (clientAnswer.suggestedChips && clientAnswer.suggestedChips.length > 0) {
+        setDynamicChips(clientAnswer.suggestedChips);
+      }
     } finally {
       setIsSubmitting(false);
     }

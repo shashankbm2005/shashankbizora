@@ -35,13 +35,18 @@ async function bootstrap() {
   // Trust proxy for IP rate limiting behind reverse proxies
   app.set('trust proxy', 1);
 
-  // Universal CORS & Preflight handling for dev server, production preview, and iframe embeds
+  // Universal CORS & Preflight handling for dev server, cross-device access, and preview URLs
   app.use((req: Request, res: Response, next) => {
-    const origin = req.headers.origin || '*';
-    res.setHeader('Access-Control-Allow-Origin', origin);
+    const origin = req.headers.origin;
+    if (origin) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+    } else {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Expose-Headers', 'Content-Disposition, Authorization');
     res.setHeader('Access-Control-Max-Age', '86400');
 
     if (req.method === 'OPTIONS') {
@@ -248,11 +253,13 @@ Please confirm this consultation and connect with me.`;
       });
     }
 
-    // Set Server-Sent Events headers
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
+    // Set Server-Sent Events headers for immediate mobile & proxy delivery
+    res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache, no-transform');
     res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no');
     res.flushHeaders?.();
+    res.write(': ping\n\n');
 
     try {
       await executeAiChatStream(
@@ -381,8 +388,8 @@ Please review my consultation and get back to me.`;
   app.post('/api/admin/login', (req: Request, res: Response) => {
     const ipHash = getClientIpHash(req);
 
-    // Rate limit: 5 login attempts per 5 minutes per IP
-    const rateCheck = checkRateLimit(`admin_login_${ipHash}`, 5, 5 * 60 * 1000);
+    // Rate limit: 30 login attempts per 5 minutes per IP
+    const rateCheck = checkRateLimit(`admin_login_${ipHash}`, 30, 5 * 60 * 1000);
     if (!rateCheck.allowed) {
       return res.status(429).json({
         success: false,

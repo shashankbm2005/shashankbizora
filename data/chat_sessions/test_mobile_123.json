@@ -1,0 +1,27 @@
+{
+  "sessionId": "test_mobile_123",
+  "conversationId": "conv_e27f98d3-6913-4365-9669-c00fcfc6e6d3",
+  "createdAt": "2026-10-27T19:18:47.994Z",
+  "updatedAt": "2026-10-27T19:18:52.508Z",
+  "messages": [
+    {
+      "id": "482042e9-5021-4f40-8f70-0ca582871962",
+      "role": "user",
+      "content": "How much does a business website cost?",
+      "timestamp": "07:18 PM"
+    },
+    {
+      "id": "fe52a5e3-0a14-4338-9e4b-c41b00d55c66",
+      "role": "assistant",
+      "content": "Because project scope varies based on what features you need (catalogue size, WhatsApp integration, or booking forms), we don't quote arbitrary fixed prices.\n\nHere is our honest quotation process:\n1. **Free 15-Minute Discovery:** We review your exact requirements with founder Shashank.\n2. **Written Proposal:** We share a transparent quotation with guaranteed delivery timeline and zero hidden costs.\n3. **Full Ownership:** You own your domain, code, and database completely.\n\nWould you like to schedule a **Free Consultation** call, or would you prefer a quick chat with Shashank on WhatsApp (+91 8147827430)?",
+      "timestamp": "07:18 PM",
+      "suggestedAction": "consultation",
+      "serviceId": "website_dev"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "website_dev"
+  }
+}
