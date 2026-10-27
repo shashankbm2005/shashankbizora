@@ -20,6 +20,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { BIZORA_PHONE, getWhatsAppUrl } from '../data/servicesData.ts';
+import { submitEnquiryWithFallback } from '../lib/enquiryClient.ts';
 
 interface AiChatbotAssistantProps {
   onOpenConsultation: (serviceId?: string) => void;
@@ -357,11 +358,11 @@ Tell me about your business or pick a topic below to get started!`,
     }
 
     setLeadSubmitting(true);
+    setLeadError(null);
+
     try {
-      const res = await fetch('/api/chat/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const result = await submitEnquiryWithFallback(
+        {
           customer_name: leadName.trim(),
           business_name: leadBusiness.trim() || `${leadName.trim()}'s Business`,
           business_type: leadBusiness.trim() || 'General Commercial',
@@ -371,24 +372,24 @@ Tell me about your business or pick a topic below to get started!`,
           project_description: 'Inquiry collected via BIZORA AI Assistant in-chat lead form.',
           consent: leadConsent,
           sessionId,
-        }),
-      });
+        },
+        { endpoint: '/api/chat/lead' }
+      );
 
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to submit requirements.');
+      if (!result.success) {
+        throw new Error(result.error || result.message || 'Failed to submit requirements.');
       }
 
       setLeadSuccess({
-        refId: data.referenceId,
-        whatsappUrl: data.directWhatsAppUrl,
+        refId: result.referenceId,
+        whatsappUrl: result.directWhatsAppUrl,
       });
 
       // Add assistant confirmation message in chat
       const confirmMsg: Message = {
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: `🎉 **Lead Submitted & Saved to Database!**\n\n• **Ref ID:** \`${data.referenceId}\`\n• **Client:** ${leadName.trim()}\n• **Phone:** ${leadPhone.trim()}\n\nOur founder **Shashank** has received your request. You can also click below to confirm immediately on WhatsApp!`,
+        content: `🎉 **Lead Submitted & Saved to Database!**\n\n• **Ref ID:** \`${result.referenceId}\`\n• **Client:** ${leadName.trim()}\n• **Phone:** ${leadPhone.trim()}\n\nOur founder **Shashank** has received your request. You can also click below to confirm immediately on WhatsApp!`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         suggestedAction: 'whatsapp',
       };

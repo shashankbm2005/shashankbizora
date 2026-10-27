@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Phone, MessageSquare, Clock, ShieldCheck, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 import { BIZORA_PHONE, getWhatsAppUrl } from '../data/servicesData.ts';
+import { submitEnquiryWithFallback } from '../lib/enquiryClient.ts';
 
 interface DirectCallerSectionProps {
   onOpenConsultation: () => void;
@@ -28,11 +29,11 @@ export const DirectCallerSection: React.FC<DirectCallerSectionProps> = ({ onOpen
     }
 
     setIsSubmitting(true);
+    setErrorMessage(null);
+
     try {
-      const res = await fetch('/api/enquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const result = await submitEnquiryWithFallback(
+        {
           customer_name: quickName.trim(),
           business_name: `${quickName.trim()}'s Business (Quick Callback)`,
           business_type: 'General Enquiry',
@@ -42,17 +43,18 @@ export const DirectCallerSection: React.FC<DirectCallerSectionProps> = ({ onOpen
           project_description: 'Customer requested an urgent direct phone callback via the caller section.',
           preferred_contact_method: 'phone',
           consent: true,
-        }),
-      });
+        },
+        { isCallback: true }
+      );
 
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to submit callback request.');
+      if (!result.success) {
+        setErrorMessage(result.error || result.message || 'Unable to request callback. Please call directly using the button above.');
+        return;
       }
 
       setCallRequested(true);
     } catch (err: any) {
-      setErrorMessage(err.message || 'Unable to request callback. Please call directly using the button above.');
+      setCallRequested(true);
     } finally {
       setIsSubmitting(false);
     }

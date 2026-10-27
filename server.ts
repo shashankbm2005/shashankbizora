@@ -35,6 +35,21 @@ async function bootstrap() {
   // Trust proxy for IP rate limiting behind reverse proxies
   app.set('trust proxy', 1);
 
+  // Universal CORS & Preflight handling for dev server, production preview, and iframe embeds
+  app.use((req: Request, res: Response, next) => {
+    const origin = req.headers.origin || '*';
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Max-Age', '86400');
+
+    if (req.method === 'OPTIONS') {
+      return res.status(204).end();
+    }
+    next();
+  });
+
   // Security headers & JSON parsing
   app.use(express.json({ limit: '1mb' }));
 
@@ -70,8 +85,8 @@ async function bootstrap() {
   app.post('/api/enquiries', async (req: Request, res: Response) => {
     const ipHash = getClientIpHash(req);
 
-    // 1. Rate limiting: 5 enquiries per 10 minutes per IP
-    const rateCheck = checkRateLimit(`enquiry_${ipHash}`, 5, 10 * 60 * 1000);
+    // 1. Rate limiting: 30 enquiries per 10 minutes per IP
+    const rateCheck = checkRateLimit(`enquiry_${ipHash}`, 30, 10 * 60 * 1000);
     if (!rateCheck.allowed) {
       return res.status(429).json({
         success: false,

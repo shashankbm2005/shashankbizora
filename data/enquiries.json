@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "id": "1788948e-0cba-4a68-9883-3d89b8b4a4f5",
+    "reference_id": "BIZ-J886Q7",
+    "customer_name": "Suresh Patel",
+    "business_name": "Patel Electronics",
+    "business_type": "Electronics Store",
+    "phone": "+91 91234 56780",
+    "city": "Ahmedabad",
+    "requested_service": "digital_catalogue",
+    "project_description": "We want to showcase our electronic appliances and batteries online.",
+    "preferred_contact_method": "whatsapp",
+    "consent_at": "2026-10-27T18:15:13.583Z",
+    "status": "new",
+    "internal_notes": "",
+    "created_at": "2026-10-27T18:15:13.583Z",
+    "updated_at": "2026-10-27T18:15:13.583Z"
+  },
+  {
+    "id": "eb9eb4d7-5d35-46fd-9f11-b49152650d43",
+    "reference_id": "BIZ-4CG8Y3",
+    "customer_name": "Test Customer",
+    "business_name": "Test Motors",
+    "business_type": "Automobile",
+    "phone": "+91 98765 43210",
+    "email": "test@example.com",
+    "city": "Bengaluru",
+    "requested_service": "website_dev",
+    "project_description": "We need a website for our automobile business.",
+    "preferred_contact_method": "phone",
+    "consent_at": "2026-10-27T18:11:16.960Z",
+    "status": "new",
+    "internal_notes": "",
+    "created_at": "2026-10-27T18:11:16.960Z",
+    "updated_at": "2026-10-27T18:11:16.960Z"
+  }
+]

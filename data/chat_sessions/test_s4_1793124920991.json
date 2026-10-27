@@ -1,0 +1,41 @@
+{
+  "sessionId": "test_s4_1793124920991",
+  "conversationId": "conv_70ddbe38-761a-4866-8a19-90198667df08",
+  "createdAt": "2026-10-27T18:15:20.991Z",
+  "updatedAt": "2026-10-27T18:15:21.389Z",
+  "messages": [
+    {
+      "id": "c33e3d6a-e001-4b41-aa50-7e1eb5a355b4",
+      "role": "user",
+      "content": "Tell me about digital catalogues",
+      "timestamp": "06:15 PM"
+    },
+    {
+      "id": "7bebcd3c-4550-4ce9-baf0-abb100d89a06",
+      "role": "assistant",
+      "content": "Regarding **Digital Catalogues & Online Presence**:\n\n- Description: Interactive online product catalogues that replace heavy 40MB PDF files that customers rarely open or struggle to read on mobile.\n- Key Capabilities: Category-based product browsing, instant search, product photos, variant specs (sizes, models, ratings), and a direct \"Enquire on WhatsApp for this Product\" button for every item.\n- Customer Experience: Customers browse smoothly on their smartphone and send instant WhatsApp messages with the exact product title prefilled.\n- Ideal For: Battery & electronics stores, hardware distributors, industrial component suppliers, furniture showrooms, clothing and lifestyle boutiques.\n- Delivery Timeline: 7 to 14 business days depending on the number of categories and items.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "06:15 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "digital_catalogue"
+    },
+    {
+      "id": "98e9d407-8341-4f4a-ac7b-c5e46b7c4257",
+      "role": "user",
+      "content": "You already told me that, explain differently in simple words",
+      "timestamp": "06:15 PM"
+    },
+    {
+      "id": "115c01c6-cc45-4208-ac39-382ccea17a9a",
+      "role": "assistant",
+      "content": "Understood! Let me put it more simply:\n\nThink of BIZORA as your digital team. Instead of you spending hours answering the same price questions or losing customers when your phone is busy, we build a simple mobile link for your business.\n\nCustomers click the link on Google or WhatsApp, see your items or services, and send their order directly to your phone.\n\nWould you like to see a real example or discuss your specific shop with founder Shashank?",
+      "timestamp": "06:15 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "digital_catalogue"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "digital_catalogue"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "sessionId": "test_s1_1793124919727",
+  "conversationId": "conv_fb04d691-504f-4014-85fb-f003c34edae9",
+  "createdAt": "2026-10-27T18:15:19.729Z",
+  "updatedAt": "2026-10-27T18:15:20.215Z",
+  "messages": [
+    {
+      "id": "84595723-e214-4b9c-8c9d-2bbdd54e8f34",
+      "role": "user",
+      "content": "Tell me about your business website development service",
+      "timestamp": "06:15 PM"
+    },
+    {
+      "id": "bdbf47a5-696a-4f47-9051-837bf253cdb9",
+      "role": "assistant",
+      "content": "Regarding **Business Website Development**:\n\n- Description: High-speed, conversion-focused websites engineered specifically for Indian businesses and mobile shoppers.\n- Key Capabilities: Sub-2-second load times on 4G/5G mobile connections, local Google SEO setup (Google Business Profile optimization and schema markup), responsive design tested across budget to flagship smartphones.\n- Inclusions: 5 to 10 structured pages (Home, About, Services/Products, Portfolio/Gallery, Contact), custom enquiry capture forms, Google Maps integration, direct click-to-call and WhatsApp triggers.\n- Ideal For: Clinics, manufacturing suppliers, professional service firms (CAs, lawyers, architects), local service contractors, and retailers.\n- Delivery Timeline: Standard business websites are delivered in 7 to 14 working days once content and brand details are gathered.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "06:15 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "website_dev"
+    },
+    {
+      "id": "ef132bf1-e45a-4404-9064-70f47397e9a2",
+      "role": "user",
+      "content": "How much does it cost?",
+      "timestamp": "06:15 PM"
+    },
+    {
+      "id": "1d72584e-df17-4db0-93f6-3d872bf094b7",
+      "role": "assistant",
+      "content": "Because project scope varies based on what features you need (catalogue size, WhatsApp integration, or booking forms), we don't quote arbitrary fixed prices.\n\nHere is our honest quotation process:\n1. **Free 15-Minute Discovery:** We review your exact requirements with founder Shashank.\n2. **Written Proposal:** We share a transparent quotation with guaranteed delivery timeline and zero hidden costs.\n3. **Full Ownership:** You own your domain, code, and database completely.\n\nWould you like to schedule a **Free Consultation** call, or would you prefer a quick chat with Shashank on WhatsApp (+91 8147827430)?",
+      "timestamp": "06:15 PM",
+      "suggestedAction": "consultation",
+      "serviceId": "website_dev"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "website_dev"
+  }
+}

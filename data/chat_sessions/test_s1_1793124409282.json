@@ -1,0 +1,41 @@
+{
+  "sessionId": "test_s1_1793124409282",
+  "conversationId": "conv_31079758-577e-4cfe-adf5-b29f98b6b6d5",
+  "createdAt": "2026-10-27T18:06:49.291Z",
+  "updatedAt": "2026-10-27T18:15:19.033Z",
+  "messages": [
+    {
+      "id": "21e11978-605a-4e67-8d68-4b9592df19d6",
+      "role": "user",
+      "content": "Tell me about your business website development service",
+      "timestamp": "06:06 PM"
+    },
+    {
+      "id": "70e63f40-21e4-4d7d-9850-32923d0ece84",
+      "role": "assistant",
+      "content": "At BIZORA, our Business Website Development is engineered specifically for Indian businesses to",
+      "timestamp": "06:15 PM",
+      "suggestedAction": "call",
+      "serviceId": "website_dev"
+    },
+    {
+      "id": "63a9dcdf-1581-47d9-82dc-4879e509186c",
+      "role": "user",
+      "content": "How much does it cost?",
+      "timestamp": "06:15 PM"
+    },
+    {
+      "id": "b8fcc100-eeda-4579-86d0-2a6c403f1beb",
+      "role": "assistant",
+      "content": "Because project scope varies based on what features you need (catalogue size, WhatsApp integration, or booking forms), we don't quote arbitrary fixed prices.\n\nHere is our honest quotation process:\n1. **Free 15-Minute Discovery:** We review your exact requirements with founder Shashank.\n2. **Written Proposal:** We share a transparent quotation with guaranteed delivery timeline and zero hidden costs.\n3. **Full Ownership:** You own your domain, code, and database completely.\n\nWould you like to schedule a **Free Consultation** call, or would you prefer a quick chat with Shashank on WhatsApp (+91 8147827430)?",
+      "timestamp": "06:15 PM",
+      "suggestedAction": "consultation",
+      "serviceId": "website_dev"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "website_dev"
+  }
+}

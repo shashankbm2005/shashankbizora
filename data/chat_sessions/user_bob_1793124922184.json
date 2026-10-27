@@ -1,0 +1,25 @@
+{
+  "sessionId": "user_bob_1793124922184",
+  "conversationId": "conv_65605d17-972d-4d96-81f2-a9bb43af44be",
+  "createdAt": "2026-10-27T18:15:22.379Z",
+  "updatedAt": "2026-10-27T18:15:22.578Z",
+  "messages": [
+    {
+      "id": "a10812f6-dc18-436b-ae21-de586db71544",
+      "role": "user",
+      "content": "Hello, what can you do for me?",
+      "timestamp": "06:15 PM"
+    },
+    {
+      "id": "37ab5446-2c83-4a1c-986c-0377c1e1f48e",
+      "role": "assistant",
+      "content": "Regarding **WhatsApp Business Automation & Customer Workflows**:\n\n- Description: Automated customer communication workflows built around WhatsApp—the primary communication channel used by Indian consumers.\n- Key Capabilities: Instant automated greeting messages within seconds (even outside business hours), structured lead intake collecting customer requirement, automated order confirmations, and smart routing to founder or staff.\n- Business Benefit: Prevents customer drop-off when staff are busy serving in-store clients.\n- Delivery Timeline: 5 to 10 business days for standalone automation; integrated into websites and catalogues as standard.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "06:15 PM",
+      "suggestedAction": "whatsapp"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring"
+  }
+}
