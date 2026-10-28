@@ -16,8 +16,7 @@ import {
 import { SERVICES, BIZORA_PHONE, getWhatsAppUrl } from '../data/servicesData.ts';
 import { HeroCarousel } from '../components/HeroCarousel.tsx';
 import { DirectCallerSection } from '../components/DirectCallerSection.tsx';
-import { CustomerMomentsFloating } from '../components/CustomerMomentsFloating.tsx';
-import modernArchitectureImg from '../assets/images/modern_digital_architecture_1793126619736.jpg';
+import realisticWorkspaceImg from '../assets/images/realistic_digital_workspace_1793195172945.jpg';
 
 interface HomePageProps {
   onOpenConsultation: (serviceId?: string) => void;
@@ -41,9 +40,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation, onNaviga
 
       {/* 2. DIRECT FOUNDER CALLER SECTION */}
       <DirectCallerSection onOpenConsultation={() => onOpenConsultation()} />
-
-      {/* 3. 6 FLOATING REALISTIC CUSTOMER MOMENTS */}
-      <CustomerMomentsFloating onOpenConsultation={onOpenConsultation} />
 
       {/* 2. REAL BUSINESS PROBLEMS SOLVED */}
       <section className="bg-slate-100/70 py-16 border-y border-slate-200">
@@ -248,12 +244,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation, onNaviga
 
             <div className="relative rounded-2xl overflow-hidden border border-slate-700 aspect-[4/3] shadow-2xl group">
               <img
-                src={modernArchitectureImg}
-                alt="BIZORA modern enterprise architecture with real-time analytics and WhatsApp communication"
+                src={realisticWorkspaceImg}
+                alt="BIZORA real-time modern digital business operations and WhatsApp management"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/images/modern_digital_architecture.jpg';
+                  (e.target as HTMLImageElement).src = '/images/realistic_digital_workspace.jpg';
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
