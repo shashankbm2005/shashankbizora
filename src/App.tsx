@@ -13,9 +13,14 @@ import { PrivacyPage } from './pages/PrivacyPage.tsx';
 import { AdminDashboard } from './pages/AdminDashboard.tsx';
 
 export default function App() {
+  const VALID_TABS = ['services', 'how-it-works', 'about', 'contact', 'privacy', 'admin'];
+
   const [currentTab, setCurrentTab] = useState<string>(() => {
     const hash = window.location.hash.replace('#', '').trim();
-    return hash || 'home';
+    if (hash && VALID_TABS.includes(hash)) return hash;
+    const path = window.location.pathname.replace(/^\//, '').trim();
+    if (path && VALID_TABS.includes(path)) return path;
+    return 'home';
   });
 
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
@@ -28,18 +33,27 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Listen to hash changes (e.g., back/forward buttons)
+  // Listen to hash and browser history popstate changes
   useEffect(() => {
-    const onHashChange = () => {
+    const onLocationChange = () => {
       const hash = window.location.hash.replace('#', '').trim();
-      if (hash) {
+      if (hash && VALID_TABS.includes(hash)) {
         setCurrentTab(hash);
-      } else {
-        setCurrentTab('home');
+        return;
       }
+      const path = window.location.pathname.replace(/^\//, '').trim();
+      if (path && VALID_TABS.includes(path)) {
+        setCurrentTab(path);
+        return;
+      }
+      setCurrentTab('home');
     };
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    window.addEventListener('hashchange', onLocationChange);
+    window.addEventListener('popstate', onLocationChange);
+    return () => {
+      window.removeEventListener('hashchange', onLocationChange);
+      window.removeEventListener('popstate', onLocationChange);
+    };
   }, []);
 
   const handleOpenConsultation = (serviceId?: string) => {

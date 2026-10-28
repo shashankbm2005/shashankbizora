@@ -60,6 +60,14 @@ export function normalizeAndValidatePhone(rawPhone: string): { valid: boolean; n
   return { valid: false, normalized: '', display: '' };
 }
 
+export function stripHtmlTags(raw: any): string {
+  if (!raw || typeof raw !== 'string') return '';
+  return raw
+    .replace(/<[^>]*>/g, '')
+    .replace(/[<>]/g, '')
+    .trim();
+}
+
 export function validateEnquiryInput(body: any): ValidationResult {
   const errors: Record<string, string> = {};
 
@@ -67,8 +75,8 @@ export function validateEnquiryInput(body: any): ValidationResult {
     return { valid: false, errors: { form: 'Invalid request body.' } };
   }
 
-  // 1. Customer Name
-  const customer_name = typeof body.customer_name === 'string' ? body.customer_name.trim() : '';
+  // 1. Customer Name (Sanitized)
+  const customer_name = stripHtmlTags(body.customer_name);
   if (!customer_name) {
     errors.customer_name = 'Your name is required.';
   } else if (customer_name.length < 2) {
@@ -77,8 +85,8 @@ export function validateEnquiryInput(body: any): ValidationResult {
     errors.customer_name = 'Name must not exceed 100 characters.';
   }
 
-  // 2. Business Name
-  const business_name = typeof body.business_name === 'string' ? body.business_name.trim() : '';
+  // 2. Business Name (Sanitized)
+  const business_name = stripHtmlTags(body.business_name);
   if (!business_name) {
     errors.business_name = 'Business name is required.';
   } else if (business_name.length < 2) {
@@ -87,8 +95,8 @@ export function validateEnquiryInput(body: any): ValidationResult {
     errors.business_name = 'Business name must not exceed 120 characters.';
   }
 
-  // 3. Business Type / Industry
-  const business_type = typeof body.business_type === 'string' ? body.business_type.trim() : '';
+  // 3. Business Type / Industry (Sanitized)
+  const business_type = stripHtmlTags(body.business_type);
   if (!business_type) {
     errors.business_type = 'Please select or enter your business type/industry.';
   } else if (business_type.length > 100) {
@@ -113,8 +121,8 @@ export function validateEnquiryInput(body: any): ValidationResult {
     }
   }
 
-  // 6. City
-  const city = typeof body.city === 'string' ? body.city.trim() : '';
+  // 6. City (Sanitized)
+  const city = stripHtmlTags(body.city);
   if (!city) {
     errors.city = 'City or location is required.';
   } else if (city.length > 100) {
@@ -127,8 +135,8 @@ export function validateEnquiryInput(body: any): ValidationResult {
     errors.requested_service = 'Please select one of the available digital services.';
   }
 
-  // 8. Project Description / Business Problem
-  const project_description = typeof body.project_description === 'string' ? body.project_description.trim() : '';
+  // 8. Project Description / Business Problem (Sanitized)
+  const project_description = stripHtmlTags(body.project_description);
   if (!project_description) {
     errors.project_description = 'Please describe your business problem or what you need.';
   } else if (project_description.length < 10) {
@@ -137,8 +145,8 @@ export function validateEnquiryInput(body: any): ValidationResult {
     errors.project_description = 'Description must not exceed 3000 characters.';
   }
 
-  // 9. Budget Range (Optional)
-  const budget_range = typeof body.budget_range === 'string' ? body.budget_range.trim() : '';
+  // 9. Budget Range (Optional, Sanitized)
+  const budget_range = stripHtmlTags(body.budget_range);
 
   // 10. Preferred Contact Method
   const preferred_contact_method = body.preferred_contact_method === 'phone' ? 'phone' : 'whatsapp';

@@ -249,7 +249,7 @@ export async function executeAiChat(
       }
 
       const responsePromise = ai.models.generateContent({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-3.1-flash-lite',
         contents,
         config: {
           systemInstruction: systemPrompt,
@@ -373,7 +373,7 @@ export async function executeAiChatStream(
       }
 
       const streamPromise = ai.models.generateContentStream({
-        model: 'gemini-3.8-flash',
+        model: 'gemini-3.1-flash-lite',
         contents,
         config: {
           systemInstruction: systemPrompt,

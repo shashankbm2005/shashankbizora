@@ -81,7 +81,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
 
   const SUPABASE_REST_URL = 'https://qfhdnsfcqjjrfwnregrt.supabase.co/rest/v1/customer_enquiries';
   const SUPABASE_KEY = 'sb_publishable_Z92AffcEwzHYE1WrSo5aHg_s850f3pY';
-  const VALID_FOUNDER_KEYS = ['admin2026bits', 'bizora2026admin'];
+  // Cryptographic SHA-256 hashes of valid administrative founder keys (prevents plaintext exposure in bundle)
+  const VALID_FOUNDER_HASHES = [
+    'f077e4d0f537c240e86c39b86c38a35e7b5d4f6bc7308e94f8b224930dd74f74', // admin2026bits
+    '70604b92b006f44d437c748469e60c7a7c0a3d5fe348340bad5026d092033925', // bizora2026admin
+  ];
+
+  const computeSha256 = async (str: string): Promise<string> => {
+    try {
+      const buffer = new TextEncoder().encode(str);
+      const hashBuffer = await window.crypto.subtle.digest('SHA-256', buffer);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map((b) => b.toString(16).padStart(2, '0'))
+        .join('');
+    } catch {
+      return '';
+    }
+  };
 
   // Check login on mount
   useEffect(() => {
@@ -140,7 +156,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
 
     // 2. Direct fallback authentication (guarantees access from any device or external deployment)
     if (!resolvedToken) {
-      if (VALID_FOUNDER_KEYS.includes(trimmedInput)) {
+      const inputHash = await computeSha256(trimmedInput);
+      if (VALID_FOUNDER_HASHES.includes(inputHash)) {
         resolvedToken = `founder_direct_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
       } else {
         setAuthError('Invalid administrator password. Access denied.');
@@ -396,7 +413,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
     // Generate CSV in-browser (works offline & across all mobile devices)
     const sanitize = (val: string | null | undefined): string => {
       if (!val) return '""';
-      const str = String(val).replace(/"/g, '""');
+      let str = String(val).replace(/"/g, '""');
+      if (/^[=\+\-\@\t\r]/.test(str)) {
+        str = `'${str}`; // Neutralize formula injection
+      }
       return `"${str}"`;
     };
 

@@ -371,7 +371,7 @@ Tell me about your business or pick a topic below to get started!`,
 
     const streamTimeout = setTimeout(() => {
       abortController.abort();
-    }, 6000);
+    }, 4500);
 
     try {
       const response = await fetch('/api/chat/stream', {
@@ -825,8 +825,17 @@ Tell me about your business or pick a topic below to get started!`,
                           <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                         ) : (
                           <div className="space-y-1">
-                            {renderFormattedText(msg.content)}
-                            {msg.isStreaming && (
+                            {msg.content ? (
+                              renderFormattedText(msg.content)
+                            ) : msg.isStreaming ? (
+                              <div className="flex items-center gap-1.5 py-1 text-xs text-slate-500">
+                                <span className="inline-block w-2 h-2 rounded-full bg-blue-500 animate-bounce" />
+                                <span className="inline-block w-2 h-2 rounded-full bg-indigo-500 animate-bounce [animation-delay:150ms]" />
+                                <span className="inline-block w-2 h-2 rounded-full bg-purple-500 animate-bounce [animation-delay:300ms]" />
+                                <span className="text-slate-500 font-medium ml-1.5">BIZORA Assistant is typing...</span>
+                              </div>
+                            ) : null}
+                            {msg.isStreaming && msg.content && (
                               <span className="inline-block w-1.5 h-3.5 ml-1 bg-blue-600 animate-pulse align-middle" />
                             )}
                           </div>

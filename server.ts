@@ -261,23 +261,34 @@ Please confirm this consultation and connect with me.`;
     res.flushHeaders?.();
     res.write(': ping\n\n');
 
+    let isClosed = false;
+    req.on('close', () => {
+      isClosed = true;
+    });
+
     try {
       await executeAiChatStream(
         message.trim(),
         sessionId,
         conversationId,
         (token: string) => {
-          res.write(`data: ${JSON.stringify({ token })}\n\n`);
+          if (!isClosed) {
+            res.write(`data: ${JSON.stringify({ token })}\n\n`);
+          }
         },
         (payload) => {
-          res.write(`data: ${JSON.stringify({ done: true, ...payload })}\n\n`);
-          res.end();
+          if (!isClosed) {
+            res.write(`data: ${JSON.stringify({ done: true, ...payload })}\n\n`);
+            res.end();
+          }
         }
       );
     } catch (err: any) {
       console.error('[API] AI Stream error:', err.message);
-      res.write(`data: ${JSON.stringify({ error: 'Stream interrupted. Please try again.' })}\n\n`);
-      res.end();
+      if (!isClosed) {
+        res.write(`data: ${JSON.stringify({ error: 'Stream interrupted. Please try again.' })}\n\n`);
+        res.end();
+      }
     }
   });
 

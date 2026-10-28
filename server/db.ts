@@ -167,6 +167,7 @@ export class DatabaseService {
         const { data, error } = await this.supabase
           .from('customer_enquiries')
           .insert({
+            id: newEnquiry.id,
             reference_id: newEnquiry.reference_id,
             customer_name: newEnquiry.customer_name,
             business_name: newEnquiry.business_name,
@@ -199,7 +200,18 @@ export class DatabaseService {
         this.tableExistsInSupabase = true;
         this.lastConnectionError = null;
         console.log('[BIZORA DB] Successfully saved enquiry to Supabase PostgreSQL! Ref:', newEnquiry.reference_id);
-        return data as CustomerEnquiry;
+        
+        // Sync local cache with remote id if generated differently
+        if (data?.id && data.id !== newEnquiry.id) {
+          const list = this.readLocal();
+          const idx = list.findIndex(e => e.reference_id === newEnquiry.reference_id);
+          if (idx !== -1) {
+            list[idx].id = data.id;
+            this.writeLocal(list);
+          }
+        }
+        
+        return (data || newEnquiry) as CustomerEnquiry;
       } catch (err: any) {
         console.warn('[BIZORA DB] Supabase network exception:', err.message);
         return newEnquiry;
@@ -264,7 +276,20 @@ export class DatabaseService {
 
         const { data, error } = await query;
         if (!error && data) {
-          return data as CustomerEnquiry[];
+          const localMap = new Map(this.readLocal().map((e) => [e.reference_id, e]));
+          const merged = (data as CustomerEnquiry[]).map((remote) => {
+            const local = localMap.get(remote.reference_id);
+            if (local && new Date(local.updated_at).getTime() > new Date(remote.updated_at).getTime()) {
+              return {
+                ...remote,
+                status: local.status,
+                internal_notes: local.internal_notes,
+                updated_at: local.updated_at,
+              };
+            }
+            return remote;
+          });
+          return merged;
         }
       } catch {
         // Fallback to local below
@@ -321,12 +346,15 @@ export class DatabaseService {
 
     // Update in local file
     const list = this.readLocal();
-    const index = list.findIndex((e) => e.id === id);
+    const index = list.findIndex((e) => e.id === id || e.reference_id === id);
+    let updatedRecord: CustomerEnquiry | null = null;
+
     if (index !== -1) {
       if (updates.status !== undefined) list[index].status = updates.status;
       if (updates.internal_notes !== undefined) list[index].internal_notes = updates.internal_notes;
       list[index].updated_at = now;
       this.writeLocal(list);
+      updatedRecord = list[index];
     }
 
     // Update in Supabase if live
@@ -349,7 +377,7 @@ export class DatabaseService {
       }
     }
 
-    return index !== -1 ? list[index] : null;
+    return updatedRecord;
   }
 
   public async getStats(): Promise<EnquiryStats> {

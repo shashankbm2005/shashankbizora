@@ -1,0 +1,27 @@
+{
+  "sessionId": "test_mobile_direct_wa",
+  "conversationId": "conv_cc0e66b2-0db8-45b8-bcd5-cebd45d89b65",
+  "createdAt": "2026-10-28T13:00:02.075Z",
+  "updatedAt": "2026-10-28T13:00:05.214Z",
+  "messages": [
+    {
+      "id": "bb02b963-a589-47f0-b798-365644072f1b",
+      "role": "user",
+      "content": "How can I automate my shop WhatsApp?",
+      "timestamp": "01:00 PM"
+    },
+    {
+      "id": "97d0165e-d202-40b0-a650-60c523d04aae",
+      "role": "assistant",
+      "content": "Automating your WhatsApp with BIZORA ensures you never miss a lead, even when you're busy serving customers in-store. Here is how we typically structure it for retail and service shops:\n\n*   **Instant Engagement:** We set up automated greetings that trigger the moment a customer messages you, ensuring they get an immediate response even outside business hours.\n*   **Structured Lead Intake:** Instead of a simple \"Hello,\" the system prompts customers to share their specific requirements (e.g., product model, service needed, or size), which helps you prioritize your responses.\n*   **Smart Routing:** We can configure the flow to route urgent queries directly to you or your staff, while routine questions are handled by the automated workflow.\n*   **Seamless Integration:** These automations can be linked to your digital catalogue, allowing customers to browse items and enquire about specific products with a single click.\n\n**Delivery:** A standalone automation setup is typically completed within **5 to 10 business days**.\n\nSince every shop has different workflows, we don't use \"one-size-fits-all\" pricing. The best way to get a clear, transparent quote is to have a quick chat with our founder, Shashank. \n\nWould you like to schedule a **15-minute discovery call**, or would you prefer to reach out to him directly on WhatsApp at **+91 8147827430** to discuss your shop's specific needs?",
+      "timestamp": "01:00 PM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "whatsapp_automation"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "whatsapp_automation"
+  }
+}
