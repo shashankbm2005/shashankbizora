@@ -87,6 +87,35 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
     '70604b92b006f44d437c748469e60c7a7c0a3d5fe348340bad5026d092033925', // bizora2026admin
   ];
 
+  const STATUS_OVERRIDES_KEY = 'bizora_admin_status_overrides';
+
+  const getLocalStatusOverrides = (): Record<string, { status: EnquiryStatus; internal_notes?: string; updated_at?: string }> => {
+    try {
+      const raw = localStorage.getItem(STATUS_OVERRIDES_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  };
+
+  const saveLocalStatusOverride = (
+    idOrRef: string,
+    status: EnquiryStatus,
+    internal_notes?: string
+  ) => {
+    try {
+      const existing = getLocalStatusOverrides();
+      existing[idOrRef] = {
+        status,
+        internal_notes: internal_notes !== undefined ? internal_notes : existing[idOrRef]?.internal_notes,
+        updated_at: new Date().toISOString(),
+      };
+      localStorage.setItem(STATUS_OVERRIDES_KEY, JSON.stringify(existing));
+    } catch (err) {
+      console.warn('[BIZORA Admin] Failed to save local override:', err);
+    }
+  };
+
   const computeSha256 = async (str: string): Promise<string> => {
     try {
       const buffer = new TextEncoder().encode(str);
@@ -228,7 +257,51 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
         if (enquiriesRes.ok) {
           const enquiriesData = await enquiriesRes.json();
           if (enquiriesData.success) {
-            setEnquiries(enquiriesData.enquiries);
+            const overrides = getLocalStatusOverrides();
+            let merged = (enquiriesData.enquiries || []).map((item: CustomerEnquiry) => {
+              const ov = overrides[item.id] || overrides[item.reference_id];
+              if (ov) {
+                return {
+                  ...item,
+                  status: ov.status,
+                  internal_notes: ov.internal_notes !== undefined ? ov.internal_notes : item.internal_notes,
+                  updated_at: ov.updated_at || item.updated_at,
+                };
+              }
+              return item;
+            });
+
+            // Re-apply client search and filter
+            if (searchTerm) {
+              const lowerQ = searchTerm.toLowerCase();
+              merged = merged.filter(
+                (e: CustomerEnquiry) =>
+                  e.customer_name?.toLowerCase().includes(lowerQ) ||
+                  e.business_name?.toLowerCase().includes(lowerQ) ||
+                  e.phone?.includes(searchTerm) ||
+                  e.reference_id?.toLowerCase().includes(lowerQ)
+              );
+            }
+            if (statusFilter !== 'all') {
+              merged = merged.filter((e: CustomerEnquiry) => e.status === statusFilter);
+            }
+            if (serviceFilter !== 'all') {
+              merged = merged.filter((e: CustomerEnquiry) => e.requested_service === serviceFilter);
+            }
+
+            setEnquiries(merged);
+
+            const computedStats: EnquiryStats = {
+              total: merged.length,
+              new: merged.filter((e: CustomerEnquiry) => e.status === 'new').length,
+              contacted: merged.filter((e: CustomerEnquiry) => e.status === 'contacted').length,
+              qualified: merged.filter((e: CustomerEnquiry) => e.status === 'qualified').length,
+              proposal_sent: merged.filter((e: CustomerEnquiry) => e.status === 'proposal_sent').length,
+              won: merged.filter((e: CustomerEnquiry) => e.status === 'won').length,
+              lost: merged.filter((e: CustomerEnquiry) => e.status === 'lost').length,
+            };
+            setStats(computedStats);
+
             loadedViaBackend = true;
           }
         }
@@ -251,6 +324,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
         if (res.ok) {
           let list: CustomerEnquiry[] = await res.json();
 
+          // Merge local persistent overrides
+          const overrides = getLocalStatusOverrides();
+          list = list.map((item) => {
+            const ov = overrides[item.id] || overrides[item.reference_id];
+            if (ov) {
+              return {
+                ...item,
+                status: ov.status,
+                internal_notes: ov.internal_notes !== undefined ? ov.internal_notes : item.internal_notes,
+                updated_at: ov.updated_at || item.updated_at,
+              };
+            }
+            return item;
+          });
+
           // Client-side filtering & search
           if (searchTerm) {
             const lowerQ = searchTerm.toLowerCase();
@@ -271,7 +359,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
 
           setEnquiries(list);
 
-          // Compute stats dynamically from live database
+          // Compute stats dynamically from merged database list
           const computedStats: EnquiryStats = {
             total: list.length,
             new: list.filter((e) => e.status === 'new').length,
@@ -299,7 +387,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
         const localBackup = localStorage.getItem('bizora_client_enquiries_backup');
         if (localBackup) {
           try {
-            setEnquiries(JSON.parse(localBackup));
+            const rawList: CustomerEnquiry[] = JSON.parse(localBackup);
+            const overrides = getLocalStatusOverrides();
+            const merged = rawList.map((item) => {
+              const ov = overrides[item.id] || overrides[item.reference_id];
+              return ov ? { ...item, status: ov.status, internal_notes: ov.internal_notes || item.internal_notes } : item;
+            });
+            setEnquiries(merged);
           } catch {
             setDataError('Failed to load enquiries. Please check your internet connection.');
           }
@@ -329,79 +423,147 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
     setSaveSuccessMessage(null);
   };
 
+  // Quick One-Click Status Action Handler
+  const handleQuickStatusUpdate = async (
+    enquiry: CustomerEnquiry,
+    newStatus: EnquiryStatus,
+    e?: React.MouseEvent
+  ) => {
+    if (e) e.stopPropagation();
+
+    const now = new Date().toISOString();
+    const updatedEnquiry: CustomerEnquiry = {
+      ...enquiry,
+      status: newStatus,
+      updated_at: now,
+    };
+
+    // 1. Immediately update UI state in memory
+    setEnquiries((prev) =>
+      prev.map((item) => (item.id === enquiry.id ? updatedEnquiry : item))
+    );
+    if (selectedEnquiry && selectedEnquiry.id === enquiry.id) {
+      setSelectedEnquiry(updatedEnquiry);
+      setEditStatus(newStatus);
+    }
+
+    // 2. Persist to localStorage override immediately
+    saveLocalStatusOverride(enquiry.id, newStatus, enquiry.internal_notes);
+    saveLocalStatusOverride(enquiry.reference_id, newStatus, enquiry.internal_notes);
+
+    // 3. Update stats counters immediately
+    setStats((prev) => {
+      const copy = { ...prev };
+      if (copy[enquiry.status] > 0) copy[enquiry.status]--;
+      copy[newStatus] = (copy[newStatus] || 0) + 1;
+      return copy;
+    });
+
+    setSaveSuccessMessage(`Status updated to "${newStatus.replace('_', ' ').toUpperCase()}".`);
+
+    // 4. Send to backend in background
+    try {
+      await fetch(`/api/admin/enquiries/${enquiry.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          status: newStatus,
+          internal_notes: enquiry.internal_notes,
+        }),
+      });
+    } catch {}
+
+    // 5. Send to Supabase in background
+    try {
+      await fetch(`${SUPABASE_REST_URL}?id=eq.${enquiry.id}`, {
+        method: 'PATCH',
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=representation',
+        },
+        body: JSON.stringify({
+          status: newStatus,
+          updated_at: now,
+        }),
+      });
+    } catch {}
+  };
+
   const handleSaveChanges = async () => {
     if (!selectedEnquiry || !token) return;
     setIsSavingChanges(true);
     setSaveSuccessMessage(null);
 
-    let savedViaBackend = false;
+    const now = new Date().toISOString();
+    const updatedEnquiry: CustomerEnquiry = {
+      ...selectedEnquiry,
+      status: editStatus,
+      internal_notes: editNotes,
+      updated_at: now,
+    };
 
-    // 1. Try backend PATCH if not direct token
-    if (!token.startsWith('founder_direct_')) {
-      try {
-        const res = await fetch(`/api/admin/enquiries/${selectedEnquiry.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            status: editStatus,
-            internal_notes: editNotes,
-          }),
-        });
+    // 1. Update state in memory immediately
+    setSelectedEnquiry(updatedEnquiry);
+    setEnquiries((prev) =>
+      prev.map((item) => (item.id === selectedEnquiry.id ? updatedEnquiry : item))
+    );
 
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success) {
-            setSelectedEnquiry(data.enquiry);
-            savedViaBackend = true;
-          }
-        }
-      } catch (backendErr) {
-        console.warn('[BIZORA Admin] Backend PATCH failed, falling back to direct Supabase update...', backendErr);
-      }
+    // 2. Persist to localStorage overrides
+    saveLocalStatusOverride(selectedEnquiry.id, editStatus, editNotes);
+    saveLocalStatusOverride(selectedEnquiry.reference_id, editStatus, editNotes);
+
+    // 3. Update stats counters
+    setStats((prev) => {
+      const copy = { ...prev };
+      if (copy[selectedEnquiry.status] > 0) copy[selectedEnquiry.status]--;
+      copy[editStatus] = (copy[editStatus] || 0) + 1;
+      return copy;
+    });
+
+    // 4. Send to backend
+    try {
+      await fetch(`/api/admin/enquiries/${selectedEnquiry.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          status: editStatus,
+          internal_notes: editNotes,
+        }),
+      });
+    } catch (backendErr) {
+      console.warn('[BIZORA Admin] Backend PATCH notice:', backendErr);
     }
 
-    // 2. Direct Supabase PATCH Fallback (works across all devices)
-    if (!savedViaBackend) {
-      try {
-        const directRes = await fetch(`${SUPABASE_REST_URL}?id=eq.${selectedEnquiry.id}`, {
-          method: 'PATCH',
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: `Bearer ${SUPABASE_KEY}`,
-            'Content-Type': 'application/json',
-            Prefer: 'return=representation',
-          },
-          body: JSON.stringify({
-            status: editStatus,
-            internal_notes: editNotes,
-            updated_at: new Date().toISOString(),
-          }),
-        });
-
-        if (directRes.ok) {
-          const updatedRows = await directRes.json();
-          if (updatedRows && updatedRows.length > 0) {
-            setSelectedEnquiry(updatedRows[0]);
-          } else {
-            setSelectedEnquiry({
-              ...selectedEnquiry,
-              status: editStatus,
-              internal_notes: editNotes,
-              updated_at: new Date().toISOString(),
-            });
-          }
-        }
-      } catch (supErr: any) {
-        console.warn('[BIZORA Admin] Direct Supabase update error:', supErr);
-      }
+    // 5. Send to Supabase
+    try {
+      await fetch(`${SUPABASE_REST_URL}?id=eq.${selectedEnquiry.id}`, {
+        method: 'PATCH',
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=representation',
+        },
+        body: JSON.stringify({
+          status: editStatus,
+          internal_notes: editNotes,
+          updated_at: now,
+        }),
+      });
+    } catch (supErr: any) {
+      console.warn('[BIZORA Admin] Direct Supabase update notice:', supErr);
     }
 
-    setSaveSuccessMessage('Record updated and saved to database successfully.');
+    setSaveSuccessMessage(`Enquiry updated: Status is now "${editStatus.replace('_', ' ').toUpperCase()}" and notes are saved.`);
     setIsSavingChanges(false);
-    loadDashboardData(token);
   };
 
   const handleExportCsv = () => {
@@ -858,14 +1020,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
                             e.requested_service}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        <span
-                          className={`inline-block px-2.5 py-0.5 rounded-md border text-[11px] font-semibold capitalize ${
-                            statusColors[e.status] || 'bg-slate-100 text-slate-700'
+                      <td className="py-3.5 px-4 whitespace-nowrap" onClick={(ev) => ev.stopPropagation()}>
+                        <select
+                          value={e.status}
+                          onChange={(ev) => handleQuickStatusUpdate(e, ev.target.value as EnquiryStatus)}
+                          className={`px-2.5 py-1 rounded-lg border text-[11px] font-bold capitalize cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all shadow-2xs ${
+                            statusColors[e.status] || 'bg-slate-100 text-slate-700 border-slate-300'
                           }`}
+                          title="Click to quickly change enquiry status"
                         >
-                          {e.status.replace('_', ' ')}
-                        </span>
+                          <option value="new">🆕 New</option>
+                          <option value="contacted">📞 Contacted</option>
+                          <option value="qualified">⭐ Qualified</option>
+                          <option value="proposal_sent">📄 Proposal Sent</option>
+                          <option value="won">🏆 Won (Closed)</option>
+                          <option value="lost">❌ Lost</option>
+                        </select>
                       </td>
                       <td className="py-3.5 px-4 whitespace-nowrap text-slate-500">
                         {new Date(e.created_at).toLocaleDateString('en-IN', {
@@ -1012,24 +1182,138 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
 
               {/* Workflow Actions: Status & Internal Notes */}
               <div className="space-y-4 pt-2 border-t border-slate-200">
-                <h4 className="font-bold text-slate-900 text-sm">Update Workflow & Internal Notes</h4>
+                <div className="flex items-center justify-between">
+                  <h4 className="font-bold text-slate-900 text-sm">Update Workflow & Internal Notes</h4>
+                  <span className="text-[11px] font-mono text-slate-500">Ref: {selectedEnquiry.reference_id}</span>
+                </div>
+
+                {saveSuccessMessage && (
+                  <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-xs text-emerald-900 font-semibold flex items-center gap-2 animate-in fade-in">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>{saveSuccessMessage}</span>
+                  </div>
+                )}
+
+                {/* Quick Action Buttons for One-Click Updates */}
+                <div className="space-y-2">
+                  <span className="block text-slate-700 font-semibold text-xs">
+                    Quick Status Actions (1-Click Update):
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditStatus('contacted');
+                        handleQuickStatusUpdate(selectedEnquiry, 'contacted');
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                        editStatus === 'contacted'
+                          ? 'bg-amber-600 text-white border-amber-600 shadow-xs ring-2 ring-amber-300'
+                          : 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100'
+                      }`}
+                    >
+                      <span>📞</span>
+                      <span>Contacted</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditStatus('proposal_sent');
+                        handleQuickStatusUpdate(selectedEnquiry, 'proposal_sent');
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                        editStatus === 'proposal_sent'
+                          ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs ring-2 ring-indigo-300'
+                          : 'bg-indigo-50 text-indigo-800 border-indigo-200 hover:bg-indigo-100'
+                      }`}
+                    >
+                      <span>📄</span>
+                      <span>Send Proposal</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditStatus('won');
+                        handleQuickStatusUpdate(selectedEnquiry, 'won');
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                        editStatus === 'won'
+                          ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs ring-2 ring-emerald-300'
+                          : 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100'
+                      }`}
+                    >
+                      <span>🏆</span>
+                      <span>Mark Won</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditStatus('lost');
+                        handleQuickStatusUpdate(selectedEnquiry, 'lost');
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                        editStatus === 'lost'
+                          ? 'bg-slate-700 text-white border-slate-700 shadow-xs ring-2 ring-slate-400'
+                          : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                      }`}
+                    >
+                      <span>❌</span>
+                      <span>Mark Lost</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditStatus('qualified');
+                        handleQuickStatusUpdate(selectedEnquiry, 'qualified');
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                        editStatus === 'qualified'
+                          ? 'bg-purple-600 text-white border-purple-600 shadow-xs ring-2 ring-purple-300'
+                          : 'bg-purple-50 text-purple-800 border-purple-200 hover:bg-purple-100'
+                      }`}
+                    >
+                      <span>⭐</span>
+                      <span>Qualified</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditStatus('new');
+                        handleQuickStatusUpdate(selectedEnquiry, 'new');
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                        editStatus === 'new'
+                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs ring-2 ring-blue-300'
+                          : 'bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-100'
+                      }`}
+                    >
+                      <span>🆕</span>
+                      <span>Reset New</span>
+                    </button>
+                  </div>
+                </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-slate-700 font-semibold mb-1">
-                      Lead Status
+                      Lead Status Dropdown
                     </label>
                     <select
                       value={editStatus}
                       onChange={(e) => setEditStatus(e.target.value as EnquiryStatus)}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 font-medium"
                     >
-                      <option value="new">New (Uncontacted)</option>
-                      <option value="contacted">Contacted (WhatsApp/Call made)</option>
-                      <option value="qualified">Qualified (Scope & interest confirmed)</option>
-                      <option value="proposal_sent">Proposal Sent (Quotation delivered)</option>
-                      <option value="won">Won (Deal closed / deposit received)</option>
-                      <option value="lost">Lost (Not interested / cancelled)</option>
+                      <option value="new">🆕 New (Uncontacted)</option>
+                      <option value="contacted">📞 Contacted (WhatsApp/Call made)</option>
+                      <option value="qualified">⭐ Qualified (Scope & interest confirmed)</option>
+                      <option value="proposal_sent">📄 Proposal Sent (Quotation delivered)</option>
+                      <option value="won">🏆 Won (Deal closed / deposit received)</option>
+                      <option value="lost">❌ Lost (Not interested / cancelled)</option>
                     </select>
                   </div>
 

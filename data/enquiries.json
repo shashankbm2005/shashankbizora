@@ -1,5 +1,22 @@
 [
   {
+    "id": "fdec99ff-29f7-459e-89b0-21eb98461d2a",
+    "reference_id": "BIZ-67W5JK",
+    "customer_name": "Test Customer",
+    "business_name": "Test Diagnostics Center",
+    "business_type": "Healthcare",
+    "phone": "+91 99887 76655",
+    "city": "Bengaluru",
+    "requested_service": "appointment_enquiry",
+    "project_description": "Automated booking schedule test for diagnostic appointments.",
+    "preferred_contact_method": "whatsapp",
+    "consent_at": "2026-10-29T08:59:30.752Z",
+    "status": "contacted",
+    "internal_notes": "Spoke on WhatsApp. Quoted ₹18,000.",
+    "created_at": "2026-10-29T08:59:30.752Z",
+    "updated_at": "2026-10-29T08:59:31.961Z"
+  },
+  {
     "id": "890378db-7810-41ef-a532-fdde06599331",
     "reference_id": "BIZ-8PEXQX",
     "customer_name": "Test Customer",
