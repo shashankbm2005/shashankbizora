@@ -1,0 +1,25 @@
+{
+  "sessionId": "user_alice_1793341640199",
+  "conversationId": "conv_ca12fd72-3758-4bf8-ba47-a46af28bb0d7",
+  "createdAt": "2026-10-30T06:27:20.199Z",
+  "updatedAt": "2026-10-30T06:27:21.227Z",
+  "messages": [
+    {
+      "id": "6ad393c0-0f26-47d8-a410-fbffe1135275",
+      "role": "user",
+      "content": "My company name is Alice Private Enterprise",
+      "timestamp": "06:27 AM"
+    },
+    {
+      "id": "621ac915-9836-4974-a05a-e04b3ab087bb",
+      "role": "assistant",
+      "content": "Welcome, Alice! It’s great to connect with you. \n\nTo help me tailor my recommendations for **Alice Private Enterprise**, could you tell me a little more about what you do? For example, are you focused on retail, professional services, manufacturing, or something else?\n\nOnce I understand your business model, I can explain how we can help you digitize your operations—whether that’s through a high-converting website, an automated WhatsApp enquiry system, or a digital catalogue to showcase your offerings.\n\nWhenever you're ready, we can hop on a **Free 15-Minute Discovery Call** to discuss your goals. You can reach our founder, Shashank, directly at **+91 8147827430** to get started!",
+      "timestamp": "06:27 AM",
+      "suggestedAction": "whatsapp"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring"
+  }
+}

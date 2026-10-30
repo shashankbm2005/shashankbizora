@@ -1,0 +1,38 @@
+{
+  "sessionId": "test_s2_1793341613020",
+  "conversationId": "conv_baeb6a77-79e9-4ef1-9ed2-e4531d870ef6",
+  "createdAt": "2026-10-30T06:26:53.020Z",
+  "updatedAt": "2026-10-30T06:26:58.447Z",
+  "messages": [
+    {
+      "id": "aa58c86d-cf03-4c70-98c7-46539c508b10",
+      "role": "user",
+      "content": "I sell automobile batteries in Pune",
+      "timestamp": "06:26 AM"
+    },
+    {
+      "id": "d152d071-a805-4a55-91f1-f861cdf5a72c",
+      "role": "assistant",
+      "content": "That’s a great niche! In the automobile battery business, your digital presence needs to focus on two things: **local discoverability** (so people find you when their car won't start) and **trust** (since customers need reliable power).\n\nTo help you grow, we can focus on:\n*   **Local SEO:** Ensuring your shop appears at the top of Google Maps when someone searches \"battery shop near me\" in Pune.\n*   **Automated Scheduling:** A simple way for customers to book battery replacements or check-ups directly from your website.\n*   **Inventory Management:** A digital catalog so customers can check if you have the right battery model for their vehicle before they visit.\n\nSince every shop has different requirements—whether you're looking for a simple lead-generation site or a full inventory management system—we don't use \"one-size-fits-all\" pricing. \n\nThe best way to start is a **Free 15-Minute Discovery Call** with our founder, Shashank. He can look at your current setup and suggest the most cost-effective path for you. \n\nWould you like to book a call, or would you prefer to reach out to Shashank directly on WhatsApp at **+91 8147827430**?",
+      "timestamp": "06:26 AM",
+      "suggestedAction": "whatsapp"
+    },
+    {
+      "id": "c79a2779-14bf-4f32-b9b7-b34a6740de36",
+      "role": "user",
+      "content": "What features should it have for my customers?",
+      "timestamp": "06:26 AM"
+    },
+    {
+      "id": "cf46b887-8bba-4426-a8df-aa6ae4cfe05a",
+      "role": "assistant",
+      "content": "For an automobile battery business, the goal is to reduce the \"panic factor\" for your customers. When a car battery dies, they need an immediate solution. Here are the essential features we recommend to turn your digital presence into a 24/7 sales engine:\n\n*   **\"Find My Battery\" Filter:** A simple search bar where customers select their car brand and model to see which battery fits. This prevents them from calling you just to ask about compatibility.\n*   **WhatsApp Instant Inquiry:** A \"Get a Quote\" button that triggers a pre-filled WhatsApp message to you. This captures their contact info and car details instantly, even if you’re busy with another client.\n*   **Service Appointment Booking:** A calendar tool for customers to schedule home delivery and installation services, preventing double-bookings.\n*   **Automated Order/Service Updates:** Once they book, the system sends an automated WhatsApp confirmation with your location and contact details.\n*   **Click-to-Call/Maps:** A prominent button that opens Google Maps navigation directly to your Pune location, making it effortless for them to reach you.\n\nWe focus on mobile-first designs because most of your customers will be searching on their phones while stranded. \n\nWould you like to discuss how we can tailor these features specifically for your current inventory and service area? You can reach Shashank directly at **+91 8147827430** to chat about your priorities.",
+      "timestamp": "06:26 AM",
+      "suggestedAction": "whatsapp"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring"
+  }
+}

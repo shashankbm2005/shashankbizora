@@ -62,7 +62,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white min-w-0 overflow-x-clip">
       {/* Top Navbar */}
       <Navbar
         currentTab={currentTab}
@@ -71,7 +71,7 @@ export default function App() {
       />
 
       {/* Main Page Content */}
-      <main className="flex-1">
+      <main className="flex-1 min-w-0">
         {currentTab === 'home' && (
           <HomePage
             onOpenConsultation={handleOpenConsultation}

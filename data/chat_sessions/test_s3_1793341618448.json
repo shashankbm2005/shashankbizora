@@ -1,0 +1,41 @@
+{
+  "sessionId": "test_s3_1793341618448",
+  "conversationId": "conv_70752892-2fe8-4f5d-9364-8b5e881ce2fe",
+  "createdAt": "2026-10-30T06:26:58.448Z",
+  "updatedAt": "2026-10-30T06:27:04.921Z",
+  "messages": [
+    {
+      "id": "db6a942b-2e96-4f0a-ba6d-ce13a8080d6a",
+      "role": "user",
+      "content": "How does the WhatsApp catalogue work?",
+      "timestamp": "06:26 AM"
+    },
+    {
+      "id": "da3813d0-fa91-42f8-8a97-82ccde7a55e5",
+      "role": "assistant",
+      "content": "Think of a BIZORA digital catalogue as a mobile-first, interactive version of your product list, designed specifically to replace bulky, hard-to-read PDFs.\n\nHere is how it works for your customers:\n\n*   **Seamless Browsing:** Your customers open a link on their smartphone and see a clean, organized interface with categories, high-quality images, and specific product details (like sizes, models, or ratings).\n*   **Instant Search:** No more scrolling through pages; they can find exactly what they need in seconds.\n*   **Direct Inquiry:** Every single product has a dedicated \"Enquire on WhatsApp\" button. When clicked, it automatically opens WhatsApp with a pre-filled message mentioning the specific product title.\n*   **Zero Friction:** Your customer doesn't need to download anything or create an account. They simply browse, click, and start a conversation with you.\n\nThis setup ensures that even when your staff is busy with in-store clients, your digital storefront is working 24/7 to capture leads.\n\nWould you like to discuss how we can structure your specific product categories? I can set up a brief discovery call with our founder, Shashank, to walk you through the process. You can reach him directly at **+91 8147827430** or [click here to chat on WhatsApp](https://wa.me/918147827430).",
+      "timestamp": "06:27 AM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "digital_catalogue"
+    },
+    {
+      "id": "43a18d65-e85a-4a98-90b2-62214b755d8f",
+      "role": "user",
+      "content": "How does the WhatsApp catalogue work?",
+      "timestamp": "06:27 AM"
+    },
+    {
+      "id": "de2aa9a2-9093-4d31-b2ce-98efd87f65e2",
+      "role": "assistant",
+      "content": "Regarding **Digital Catalogues & Online Presence**:\n\n- Description: Interactive online product catalogues that replace heavy 40MB PDF files that customers rarely open or struggle to read on mobile.\n- Key Capabilities: Category-based product browsing, instant search, product photos, variant specs (sizes, models, ratings), and a direct \"Enquire on WhatsApp for this Product\" button for every item.\n- Customer Experience: Customers browse smoothly on their smartphone and send instant WhatsApp messages with the exact product title prefilled.\n- Ideal For: Battery & electronics stores, hardware distributors, industrial component suppliers, furniture showrooms, clothing and lifestyle boutiques.\n- Delivery Timeline: 7 to 14 business days depending on the number of categories and items.\n\nWould you like more details on this, or shall we arrange a free discovery call with our team?",
+      "timestamp": "06:27 AM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "digital_catalogue"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "digital_catalogue"
+  }
+}

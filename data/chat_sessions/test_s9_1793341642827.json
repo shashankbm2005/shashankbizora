@@ -1,0 +1,27 @@
+{
+  "sessionId": "test_s9_1793341642827",
+  "conversationId": "conv_745c7f17-cc9d-4acc-8431-4c84875e801c",
+  "createdAt": "2026-10-30T06:27:22.827Z",
+  "updatedAt": "2026-10-30T06:27:24.064Z",
+  "messages": [
+    {
+      "id": "2c30848b-e076-4b08-94ef-1d9487f14f66",
+      "role": "user",
+      "content": "How fast does a website launch?",
+      "timestamp": "06:27 AM"
+    },
+    {
+      "id": "fb308eda-3036-4903-a02c-de156027fc29",
+      "role": "assistant",
+      "content": "The speed of your website launch depends on the complexity of your requirements, but here is our standard delivery timeline:\n\n*   **Business Website (5-10 pages):** 7 to 14 working days.\n*   **Digital Catalogue & Online Inventory:** 7 to 14 working days.\n*   **Clinic/Consultant Appointment Portals:** 10 to 18 working days.\n*   **Custom Software/Database Apps:** 3 to 6 weeks.\n\nThese timelines begin once we have gathered your brand details and content. Our development process follows a structured workflow: Requirement submission, feasibility analysis, a discovery call, a written quotation, iterative preview builds, and finally, deployment and staff handover.\n\nIf you’d like to get a specific estimate for your business, I recommend a quick chat with our founder, Shashank. You can reach him directly on WhatsApp or phone at **+91 8147827430** to discuss your needs and get the process started.",
+      "timestamp": "06:27 AM",
+      "suggestedAction": "consultation",
+      "serviceId": "website_dev"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "website_dev"
+  }
+}

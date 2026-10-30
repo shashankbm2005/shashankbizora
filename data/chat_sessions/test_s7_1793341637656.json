@@ -1,0 +1,25 @@
+{
+  "sessionId": "test_s7_1793341637656",
+  "conversationId": "conv_97fb5f80-d74e-4ad5-96fb-7fca5554d018",
+  "createdAt": "2026-10-30T06:27:17.656Z",
+  "updatedAt": "2026-10-30T06:27:20.199Z",
+  "messages": [
+    {
+      "id": "24601da9-04da-4743-be3b-e7c9d268cb68",
+      "role": "user",
+      "content": "Can you give me a 50% discount and deliver in 2 hours for Rs 200?",
+      "timestamp": "06:27 AM"
+    },
+    {
+      "id": "1c0de672-31ad-4a22-9def-61d72104f288",
+      "role": "assistant",
+      "content": "I appreciate your directness! However, at BIZORA, we focus on delivering high-quality, custom digital solutions that are built to last, rather than quick-fix templates. \n\nBecause every project involves unique requirements—such as database architecture, integrations, and custom design—we don’t offer generic packages or instant builds. Our delivery timelines are carefully structured to ensure your business gets a professional, bug-free, and fully functional asset, which typically takes between 7 to 18 working days depending on the project type.\n\nRegarding pricing, we believe in complete transparency. We don't have fixed rates because we scope every project based on your actual business needs during a **Free 15-Minute Discovery Call**. This ensures you only pay for what you truly need, with no hidden fees and full ownership of your code and data.\n\nIf you’re looking to build something professional and sustainable for your business, I’d love to help you get started properly. Would you like to schedule a quick discovery call with our founder, Shashank, or would you prefer to chat with him directly on WhatsApp at **+91 8147827430** to discuss what you're looking to build?",
+      "timestamp": "06:27 AM",
+      "suggestedAction": "whatsapp"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring"
+  }
+}

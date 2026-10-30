@@ -1,0 +1,25 @@
+{
+  "sessionId": "user_bob_1793341640199",
+  "conversationId": "conv_13aa11b8-267d-433d-9a4c-26327c3a9f5a",
+  "createdAt": "2026-10-30T06:27:21.228Z",
+  "updatedAt": "2026-10-30T06:27:22.826Z",
+  "messages": [
+    {
+      "id": "d5fd0d1f-a796-4636-8f88-d84e53bdd383",
+      "role": "user",
+      "content": "Hello, what can you do for me?",
+      "timestamp": "06:27 AM"
+    },
+    {
+      "id": "841678ad-66dd-45f7-82e4-e20437c34c0d",
+      "role": "assistant",
+      "content": "Hello! I’m the BIZORA AI Assistant. We help businesses in Bengaluru and across India transition to digital operations to capture more leads and streamline customer service.\n\nHere are the two primary ways we can help your business grow:\n\n*   **WhatsApp Business Automation:** We build automated workflows that handle customer inquiries instantly. Whether it’s after-hours greetings, lead intake, or order confirmations, we ensure you never lose a customer just because your staff is busy. (Typical delivery: 5–10 business days).\n*   **Interactive Digital Catalogues:** We replace clunky, hard-to-open PDF files with smooth, mobile-friendly online catalogues. Your customers can browse categories, view product specs, and click a button to message you directly on WhatsApp about a specific item. (Typical delivery: 7–14 business days).\n\nSince every business has unique needs, we don't use \"one-size-fits-all\" pricing. We prefer to scope your requirements during a quick, free discovery call.\n\n**What kind of business are you currently running?** If you tell me a bit about it, I can explain exactly how these tools would look for you. Alternatively, you can reach out to our founder, Shashank, directly at **+91 8147827430** to discuss your goals.",
+      "timestamp": "06:27 AM",
+      "suggestedAction": "whatsapp"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring"
+  }
+}

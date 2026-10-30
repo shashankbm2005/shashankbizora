@@ -109,12 +109,24 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
   onNavigate,
 }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<number | null>(null);
 
   const totalSlides = SLIDES.length;
+
+  // Listen to prefers-reduced-motion media query
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   const nextSlide = useCallback(() => {
     setCurrentIdx((prev) => (prev + 1) % totalSlides);
@@ -124,33 +136,48 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
     setCurrentIdx((prev) => (prev - 1 + totalSlides) % totalSlides);
   }, [totalSlides]);
 
-  // Autoplay 5 seconds
+  const goToSlide = useCallback((idx: number) => {
+    setCurrentIdx(idx);
+  }, []);
+
+  // Automatic Slider: Advances every 5 seconds. Pauses on hover, focus, or reduced motion.
   useEffect(() => {
-    if (isPaused) {
-      if (timerRef.current) clearInterval(timerRef.current);
+    // Clean up any existing timer
+    if (timerRef.current !== null) {
+      window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+
+    if (prefersReducedMotion || isHovered || isFocused || totalSlides <= 1) {
       return;
     }
 
-    timerRef.current = setInterval(() => {
-      nextSlide();
+    timerRef.current = window.setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % totalSlides);
     }, 5000);
 
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current !== null) {
+        window.clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
     };
-  }, [isPaused, nextSlide]);
+  }, [currentIdx, isHovered, isFocused, prefersReducedMotion, totalSlides]);
 
-  // Keyboard navigation
+  // Keyboard navigation when user presses left/right arrow keys
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        nextSlide();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prevSlide, nextSlide]);
 
-  // Swipe handling
+  // Touch Swipe Handling for Mobile Devices
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartX(e.targetTouches[0].clientX);
   };
@@ -162,9 +189,9 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
   const handleTouchEnd = () => {
     if (touchStartX === null || touchEndX === null) return;
     const diff = touchStartX - touchEndX;
-    if (diff > 50) {
+    if (diff > 45) {
       nextSlide();
-    } else if (diff < -50) {
+    } else if (diff < -45) {
       prevSlide();
     }
     setTouchStartX(null);
@@ -193,26 +220,39 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
   };
 
   return (
-    <div
-      className="relative w-full overflow-hidden bg-slate-950 text-white select-none"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+    <section
+      className="hero-slider relative w-full overflow-hidden bg-slate-950 text-white select-none min-h-[550px] sm:min-h-[580px] lg:min-h-[640px]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsFocused(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+          setIsFocused(false);
+        }
+      }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      role="region"
       aria-roledescription="carousel"
       aria-label="BIZORA Featured Digital Solutions"
+      aria-live="polite"
     >
-      {/* Slides Viewport: Responsive height */}
-      <div className="relative w-full h-[520px] sm:h-[580px] lg:h-[660px]">
+      {/* Slides Viewport: Fluid responsive height */}
+      <div className="relative w-full h-[550px] sm:h-[580px] lg:h-[640px]">
         {SLIDES.map((slide, idx) => {
           const isActive = idx === currentIdx;
           return (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              className={`absolute inset-0 transition-opacity ${
+                prefersReducedMotion ? 'duration-0' : 'duration-700'
+              } ease-in-out ${
                 isActive ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`Slide ${idx + 1} of ${totalSlides}: ${slide.topic}`}
               aria-hidden={!isActive}
             >
               {/* Background Image with Fallback Container */}
@@ -220,10 +260,10 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 <img
                   src={slide.image}
                   alt={slide.headline}
-                  className="w-full h-full object-cover object-center transform scale-100 transition-transform duration-7000 ease-out"
+                  className="w-full h-full object-cover object-center sm:object-[center_35%]"
                   loading={idx === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
                   onError={(e) => {
-                    // Fallback to gradient if image ever fails to load
                     const target = e.currentTarget;
                     target.style.display = 'none';
                   }}
@@ -234,56 +274,56 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 />
               </div>
 
-              {/* High-Legibility Dark Contrast Scrim & Subtle Blue Tint */}
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/40" />
+              {/* High-Legibility Dark Contrast Scrims */}
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/45" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/30" />
 
-              {/* Slide Content Overlay */}
-              <div className="relative z-20 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-                <div className="max-w-2xl sm:max-w-3xl space-y-4 sm:space-y-6 pt-4">
-                  {/* Topic Kicker (Anti-slop clean unboxed metadata) */}
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400">
-                    <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
+              {/* Slide Content: Guaranteed Safe Horizontal Padding to Prevent Any Arrow Overlap */}
+              <div className="relative z-20 max-w-7xl mx-auto h-full flex flex-col justify-center px-14 sm:px-16 md:px-20 lg:px-24 pt-4 pb-16 sm:pb-14">
+                <div className="max-w-2xl sm:max-w-3xl space-y-3.5 sm:space-y-5">
+                  {/* Topic Kicker */}
+                  <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-blue-400">
+                    <span className="w-2 h-2 rounded-full bg-blue-500 inline-block shrink-0" />
                     <span>Slide 0{slide.id} of 0{totalSlides}</span>
                     <span aria-hidden="true">·</span>
-                    <span>{slide.topic}</span>
+                    <span className="truncate">{slide.topic}</span>
                   </div>
 
-                  {/* Headline */}
-                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] text-balance drop-shadow-sm">
+                  {/* Headline with Clamp Fluid Font Size */}
+                  <h1 className="hero-title font-extrabold text-white tracking-tight text-balance drop-shadow-sm">
                     {slide.headline}
                   </h1>
 
                   {/* Description */}
-                  <p className="text-sm sm:text-lg text-slate-200 max-w-xl sm:max-w-2xl leading-relaxed drop-shadow-xs">
+                  <p className="hero-desc text-slate-200 max-w-xl sm:max-w-2xl drop-shadow-xs">
                     {slide.description}
                   </p>
 
-                  {/* Call-to-action buttons */}
-                  <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+                  {/* Call-to-Action Buttons */}
+                  <div className="pt-2 flex flex-col xs:flex-row items-stretch xs:items-center gap-2.5 sm:gap-4">
                     <button
                       onClick={() => handlePrimaryClick(slide)}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-blue-600/30 transition-all cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs sm:text-sm md:text-base shadow-lg hover:shadow-blue-600/30 transition-all cursor-pointer min-h-[44px]"
                     >
-                      {slide.primaryBtnText}
-                      <ArrowRight className="w-4 h-4 sm:w-5 h-5" />
+                      <span>{slide.primaryBtnText}</span>
+                      <ArrowRight className="w-4 h-4 sm:w-5 h-5 shrink-0" />
                     </button>
 
                     <button
                       onClick={() => handleSecondaryClick(slide)}
-                      className="inline-flex items-center justify-center gap-2 px-5 py-3.5 sm:px-7 sm:py-4 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-md text-white font-semibold text-sm sm:text-base border border-white/20 transition-all cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3.5 sm:px-7 sm:py-4 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-md text-white font-semibold text-xs sm:text-sm md:text-base border border-white/20 transition-all cursor-pointer min-h-[44px]"
                     >
                       {slide.secondaryBtnText}
                     </button>
 
-                    {/* Direct Quick Call link within hero */}
+                    {/* Direct Quick Call link within hero for md+ screens */}
                     <a
                       href="tel:+918147827430"
-                      className="hidden md:inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold backdrop-blur-md transition-colors"
-                      title="Speak with founder Shashank"
+                      className="hidden md:inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold backdrop-blur-md transition-colors min-h-[44px]"
+                      title="Speak directly with founder Shashank"
                     >
-                      <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                      Direct Call: {BIZORA_PHONE}
+                      <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <span>Direct Call: {BIZORA_PHONE}</span>
                     </a>
                   </div>
                 </div>
@@ -293,54 +333,60 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
         })}
       </div>
 
-      {/* Prev / Next Navigation Arrows */}
-      <div className="absolute inset-y-0 left-0 right-0 z-30 pointer-events-none flex items-center justify-between px-2 sm:px-6">
-        <button
-          onClick={prevSlide}
-          className="pointer-events-auto p-2.5 sm:p-3.5 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white/90 hover:text-white backdrop-blur-md border border-white/10 shadow-lg transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-5 h-5 sm:w-6 h-6" />
-        </button>
+      {/* Prev / Next Navigation Arrows: Always inside hero, vertically centered, 44x44px touch targets */}
+      <button
+        onClick={prevSlide}
+        className="absolute top-1/2 -translate-y-1/2 left-1.5 xs:left-2.5 sm:left-4 lg:left-6 z-30 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-slate-950/70 hover:bg-slate-900 active:bg-blue-600 text-white backdrop-blur-md border border-white/20 shadow-xl transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 cursor-pointer"
+        aria-label="Previous slide"
+        type="button"
+      >
+        <ChevronLeft className="w-5 h-5 sm:w-6 h-6 shrink-0" />
+      </button>
 
-        <button
-          onClick={nextSlide}
-          className="pointer-events-auto p-2.5 sm:p-3.5 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white/90 hover:text-white backdrop-blur-md border border-white/10 shadow-lg transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="w-5 h-5 sm:w-6 h-6" />
-        </button>
-      </div>
+      <button
+        onClick={nextSlide}
+        className="absolute top-1/2 -translate-y-1/2 right-1.5 xs:right-2.5 sm:right-4 lg:right-6 z-30 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-slate-950/70 hover:bg-slate-900 active:bg-blue-600 text-white backdrop-blur-md border border-white/20 shadow-xl transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 cursor-pointer"
+        aria-label="Next slide"
+        type="button"
+      >
+        <ChevronRight className="w-5 h-5 sm:w-6 h-6 shrink-0" />
+      </button>
 
-      {/* Bottom Bar: 6 Clickable Dots + Slide Ticker */}
-      <div className="absolute bottom-5 inset-x-0 z-30 flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Bottom Controls Bar: Accessible 44px touch-target Indicators + Slide Ticker */}
+      <div className="absolute bottom-4 sm:bottom-6 inset-x-0 z-30 flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-none">
         {/* Pagination Dots */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1 sm:gap-2 pointer-events-auto" role="tablist" aria-label="Slide Selection">
           {SLIDES.map((slide, idx) => {
             const isActive = idx === currentIdx;
             return (
               <button
                 key={slide.id}
-                onClick={() => setCurrentIdx(idx)}
-                className={`transition-all duration-300 rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
-                  isActive
-                    ? 'w-8 sm:w-10 h-2 sm:h-2.5 bg-blue-500 shadow-xs'
-                    : 'w-2 sm:w-2.5 h-2 sm:h-2.5 bg-white/40 hover:bg-white/70'
-                }`}
+                onClick={() => goToSlide(idx)}
+                className="min-w-[32px] sm:min-w-[36px] min-h-[44px] flex items-center justify-center p-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded-md"
                 aria-label={`Go to slide ${idx + 1}: ${slide.topic}`}
-                aria-current={isActive}
-              />
+                aria-selected={isActive}
+                role="tab"
+                type="button"
+              >
+                <span
+                  className={`block transition-all duration-300 rounded-full ${
+                    isActive
+                      ? 'w-7 sm:w-9 h-2 sm:h-2.5 bg-blue-500 shadow-xs'
+                      : 'w-2 sm:w-2.5 h-2 sm:h-2.5 bg-white/40 hover:bg-white/70'
+                  }`}
+                />
+              </button>
             );
           })}
         </div>
 
         {/* Current topic label indicator */}
-        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-400 bg-slate-950/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-300 bg-slate-950/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 pointer-events-auto">
           <span>{currentIdx + 1} / {totalSlides}</span>
           <span className="text-slate-600">·</span>
           <span className="text-white font-medium">{SLIDES[currentIdx].topic}</span>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

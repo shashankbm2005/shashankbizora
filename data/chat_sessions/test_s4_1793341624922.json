@@ -1,0 +1,41 @@
+{
+  "sessionId": "test_s4_1793341624922",
+  "conversationId": "conv_f796de80-30d0-4e3b-bf06-e38e43738682",
+  "createdAt": "2026-10-30T06:27:04.922Z",
+  "updatedAt": "2026-10-30T06:27:09.925Z",
+  "messages": [
+    {
+      "id": "1f658f88-8af6-403e-a1dc-42a82cc868f7",
+      "role": "user",
+      "content": "Tell me about digital catalogues",
+      "timestamp": "06:27 AM"
+    },
+    {
+      "id": "59b0022a-a567-42e2-8730-615cc529888c",
+      "role": "assistant",
+      "content": "At BIZORA, we replace clunky, 40MB PDF files that are difficult to navigate on mobile with sleek, interactive **Digital Catalogues**.\n\nInstead of your customers struggling to zoom in on a PDF, they get a smooth, mobile-optimized browsing experience. Here is how it works:\n\n*   **Category-Based Browsing:** Customers can easily navigate through your products by category, just like an e-commerce site.\n*   **Instant Search:** No more scrolling for minutes; they find exactly what they need in seconds.\n*   **Detailed Specs:** We include photos, model numbers, ratings, and variants (sizes/colors) for each item.\n*   **WhatsApp Integration:** Every single product has a \"Enquire on WhatsApp\" button. When clicked, it sends you a message with the exact product title prefilled, so you know exactly what they are asking about.\n\nThese are perfect for battery & electronics stores, hardware distributors, or furniture showrooms looking to make their sales process faster.\n\nTypically, we deliver these within **7 to 14 business days**. Would you like to discuss how we can structure your specific product range? You can reach out to our founder, Shashank, directly at **+91 8147827430** to chat about your requirements.",
+      "timestamp": "06:27 AM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "digital_catalogue"
+    },
+    {
+      "id": "398bde91-9d9f-440d-8cef-b890bcccbdb0",
+      "role": "user",
+      "content": "You already told me that, explain differently in simple words",
+      "timestamp": "06:27 AM"
+    },
+    {
+      "id": "7e830610-2228-4f96-9e61-4385d6ca624f",
+      "role": "assistant",
+      "content": "Think of your current PDF or paper catalogue as a **static brochure**—it just sits there. \n\nA BIZORA digital catalogue acts more like a **smart store clerk** that lives on your customer’s phone. Here is the simple breakdown:\n\n*   **It’s \"Living\" Software:** Unlike a PDF, which is a dead file, your catalogue is a web-based tool. If you add a new product or change a price, it updates everywhere instantly.\n*   **Zero Loading Friction:** Customers don't need to download anything. They just click a link, and it opens instantly in their browser, even on slow mobile data.\n*   **The \"One-Click\" Sale:** The magic is in the button. When a customer likes a product, they don't have to call or email you. They hit the button, and it drops a message into your WhatsApp saying: *\"Hi, I'm interested in [Product Name].\"* \n*   **You Own It:** We don't lock you into a monthly subscription where you lose everything if you stop paying. We build it, and you own the database and the code.\n\nBasically, we turn your product list into a **24/7 digital salesperson** that makes it impossible for a customer to lose interest.\n\nDoes that make more sense? If you're ready to see how this would look for your specific items, let's hop on a 15-minute discovery call—it's free, and Shashank can walk you through a quick demo. Would you like to schedule that?",
+      "timestamp": "06:27 AM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "digital_catalogue"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "digital_catalogue"
+  }
+}

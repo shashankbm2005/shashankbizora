@@ -189,7 +189,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation, onNaviga
 
       {/* 4. VISUAL SHOWCASE & CAPABILITY HIGHLIGHT */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-900 rounded-3xl p-8 sm:p-12 text-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-900 rounded-3xl p-5 xs:p-7 sm:p-10 lg:p-12 text-white">
           <div className="space-y-6">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
               Modern Architecture
@@ -383,7 +383,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation, onNaviga
 
       {/* 7. BOTTOM CTA BLOCK */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 sm:p-12 text-white text-center space-y-6 shadow-xl">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-5 xs:p-7 sm:p-10 lg:p-12 text-white text-center space-y-6 shadow-xl">
           <span className="text-xs font-bold uppercase tracking-widest text-blue-200">
             Start Your Digital Journey Today
           </span>

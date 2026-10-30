@@ -1,0 +1,41 @@
+{
+  "sessionId": "test_s1_1793341606469",
+  "conversationId": "conv_10189f23-d813-4883-bc4e-3666f846bdae",
+  "createdAt": "2026-10-30T06:26:46.474Z",
+  "updatedAt": "2026-10-30T06:26:53.020Z",
+  "messages": [
+    {
+      "id": "eb0751aa-ffa4-4711-84a7-3fc1ce1da331",
+      "role": "user",
+      "content": "Tell me about your business website development service",
+      "timestamp": "06:26 AM"
+    },
+    {
+      "id": "79536986-0307-4df3-945c-b100998b6ce3",
+      "role": "assistant",
+      "content": "At BIZORA, we specialize in building high-speed, mobile-first websites tailored for the Indian market. We focus on turning your online presence into a functional tool that actually brings in business rather than just sitting there as a digital brochure.\n\nHere is what our website development service includes:\n\n*   **Mobile-First Engineering:** We ensure your site loads in under 2 seconds on 4G/5G networks, which is critical for retaining mobile shoppers.\n*   **Conversion Focus:** We integrate direct WhatsApp triggers, click-to-call buttons, and custom enquiry forms so potential clients can reach you instantly.\n*   **Local SEO:** Every site comes with Google Business Profile optimization and schema markup to help you show up in local searches.\n*   **Professional Structure:** We typically build 5 to 10 essential pages, including Home, About, Services/Products, and Contact.\n*   **Rapid Delivery:** Once we have your brand details and content, we deliver your functional website in just 7 to 14 working days.\n\nSince we avoid \"one-size-fits-all\" templates, we prefer to scope your specific requirements during a brief discovery call. Would you like to discuss your requirements with our founder, Shashank? You can reach him directly at **+91 8147827430** to get started.",
+      "timestamp": "06:26 AM",
+      "suggestedAction": "whatsapp",
+      "serviceId": "website_dev"
+    },
+    {
+      "id": "b54f2ca4-49e9-4dc4-90e4-0873b49b7d70",
+      "role": "user",
+      "content": "How much does it cost?",
+      "timestamp": "06:26 AM"
+    },
+    {
+      "id": "e3208fbb-ad97-4758-9f26-725e303f56f3",
+      "role": "assistant",
+      "content": "Because every business has unique needs—such as the number of products, specific integrations, or custom database requirements—we don't use \"one-size-fits-all\" pricing. \n\nTo give you an accurate and fair quote, we follow a simple process:\n\n1.  **Free 15-Minute Discovery Call:** We chat about your specific goals and business needs.\n2.  **Feasibility Analysis:** We assess the technical requirements.\n3.  **Written Quotation:** We provide a transparent, itemized proposal with zero hidden fees.\n\nThis ensures you only pay for the features you actually need, and you retain 100% ownership of your code, domain, and database.\n\nWould you like to schedule a quick 15-minute call with our founder, Shashank, to go over your requirements? You can reach him directly at **+91 8147827430** to get a clear, no-obligation estimate.",
+      "timestamp": "06:26 AM",
+      "suggestedAction": "consultation",
+      "serviceId": "website_dev"
+    }
+  ],
+  "context": {
+    "keyRequirements": [],
+    "leadStage": "exploring",
+    "lastTopic": "website_dev"
+  }
+}
